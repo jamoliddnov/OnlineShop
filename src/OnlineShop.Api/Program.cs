@@ -1,21 +1,19 @@
 using OnlineShop.Api.Configurations.LayerConfigurations;
+using OnlineShop.DataAccess.Interfaces;
+using OnlineShop.DataAccess.Repositories;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.ConfigureDataAccess();
-builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IAccountRepositorie, AccountRepositorie>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
