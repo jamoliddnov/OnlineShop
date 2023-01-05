@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Service", "src\O
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.Test", "test\OnlineShop.Test\OnlineShop.Test.csproj", "{BD26A450-6C04-4163-9557-8C76AD80DB62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineShop.IntegrationTest", "OnlineShop.IntegrationTest\OnlineShop.IntegrationTest.csproj", "{A6A9EE10-7568-4DD5-A842-D01C1C5D2C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineShop.IntegrationTest", "test\OnlineShop.IntegrationTest\OnlineShop.IntegrationTest.csproj", "{BE424E44-F29E-47D7-9687-E2435E08481D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,10 @@ Global
 		{BD26A450-6C04-4163-9557-8C76AD80DB62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD26A450-6C04-4163-9557-8C76AD80DB62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD26A450-6C04-4163-9557-8C76AD80DB62}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6A9EE10-7568-4DD5-A842-D01C1C5D2C4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6A9EE10-7568-4DD5-A842-D01C1C5D2C4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6A9EE10-7568-4DD5-A842-D01C1C5D2C4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6A9EE10-7568-4DD5-A842-D01C1C5D2C4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE424E44-F29E-47D7-9687-E2435E08481D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE424E44-F29E-47D7-9687-E2435E08481D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE424E44-F29E-47D7-9687-E2435E08481D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE424E44-F29E-47D7-9687-E2435E08481D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,7 +59,7 @@ Global
 		{2E848C93-C29E-4127-BC45-967895B1AFA6} = {8B497681-6674-443E-9AB4-D4035F19C892}
 		{EABCA01A-D02E-45E5-A733-8D80B3DB033D} = {8B497681-6674-443E-9AB4-D4035F19C892}
 		{BD26A450-6C04-4163-9557-8C76AD80DB62} = {E0068A26-6829-429B-998F-88B17A4737A6}
-		{A6A9EE10-7568-4DD5-A842-D01C1C5D2C4F} = {E0068A26-6829-429B-998F-88B17A4737A6}
+		{BE424E44-F29E-47D7-9687-E2435E08481D} = {E0068A26-6829-429B-998F-88B17A4737A6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F418840-DFD4-4EDB-AE26-8C7F9A194B0C}
