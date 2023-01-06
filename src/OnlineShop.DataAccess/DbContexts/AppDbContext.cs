@@ -1,8 +1,8 @@
-﻿using OnlineShop.Domain.Entities.Users;
+﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.Domain.Entities.Announcements;
 using OnlineShop.Domain.Entities.Categorys;
 using OnlineShop.Domain.Entities.SavedAds;
-using Microsoft.EntityFrameworkCore;
+using OnlineShop.Domain.Entities.Users;
 
 namespace OnlineShop.DataAccess.DbContexts
 {

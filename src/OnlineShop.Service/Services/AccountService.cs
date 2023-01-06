@@ -5,14 +5,7 @@ using OnlineShop.Domain.Entities.Users;
 using OnlineShop.Service.Dtos.Accounts;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Interfaces.Common.Security;
-using OnlineShop.Service.Services;
 using OnlineShop.Service.Services.Common.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineShop.Service.Services
 {
@@ -27,7 +20,7 @@ namespace OnlineShop.Service.Services
             _appDbContext = appDbContext;
             _fileService = fileService;
             _authManagerService = authManagerService;
-            _accountRepositorie = accountRepositorie;   
+            _accountRepositorie = accountRepositorie;
         }
         public async Task<string> LoginAsync(AccountLoginDto dto)
         {
@@ -64,8 +57,3 @@ namespace OnlineShop.Service.Services
         }
     }
 }
-
-//    _appDbContext.Users.Add(userEntity);
-//    var resault = await _appDbContext.SaveChangesAsync();
-//    return resault > 0;
-//}
