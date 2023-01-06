@@ -2,13 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using OnlineShop.Service.Common.Helpers;
 using OnlineShop.Service.Interfaces;
-using OnlineShop.Service.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace OnlineShop.Service.Services
 {

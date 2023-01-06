@@ -1,18 +1,17 @@
 ﻿using OnlineShop.Domain.Entities.Users;
-using OnlineShop.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShop.Service.Dtos.Accounts
 {
     public class AccountRegisterDto
     {
+        [Required, MaxLength(30), MinLength(2)]
         public string FullName { get; set; }
+        [Required]
         public string PhoneNumber { get; set; } = String.Empty;
+        [Required, EmailAddress]
         public string Email { get; set; } = String.Empty;
+        [Required, MinLength(6)]
         public string Password { get; set; } = String.Empty;
 
         public static implicit operator User(AccountRegisterDto dto)
