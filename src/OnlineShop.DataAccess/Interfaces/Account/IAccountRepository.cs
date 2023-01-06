@@ -2,8 +2,7 @@
 
 namespace OnlineShop.DataAccess.Interfaces
 {
-    public interface IAccountRepositorie
+    public interface IAccountRepository : IGenericRepository<User>
     {
-        public Task<bool> RegisterAsync(User user);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using OnlineShop.Service.Dtos.Accounts;
 
-namespace OnlineShop.Service.Interfaces
+namespace OnlineShop.Service.Interfaces.Accounts
 {
     public interface IAccountService
     {

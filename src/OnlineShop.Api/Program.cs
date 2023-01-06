@@ -1,9 +1,12 @@
 using OnlineShop.Api.Configurations.LayerConfigurations;
 using OnlineShop.DataAccess.Interfaces;
 using OnlineShop.DataAccess.Repositories;
+using OnlineShop.DataAccess.Repositories.Account;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Interfaces.Accounts;
 using OnlineShop.Service.Interfaces.Common.Security;
 using OnlineShop.Service.Services;
+using OnlineShop.Service.Services.Account;
 using OnlineShop.Service.Services.Common.Security;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +16,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.ConfigureDataAccess();
 builder.Services.AddScoped<IFileService, FileService>();
-builder.Services.AddScoped<IAccountRepositorie, AccountRepositorie>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAuthManagerService, AuthManagerService>();
 

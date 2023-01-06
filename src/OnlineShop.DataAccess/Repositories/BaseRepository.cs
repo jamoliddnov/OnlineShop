@@ -1,4 +1,6 @@
-﻿using OnlineShop.DataAccess.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OnlineShop.DataAccess.DbContexts;
+using OnlineShop.DataAccess.Interfaces;
 using OnlineShop.DataAccess.Interfaces.Common;
 using System.Linq.Expressions;
 
@@ -6,6 +8,14 @@ namespace OnlineShop.DataAccess.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
+
+        protected AppDbContext _dbcontext;
+        protected DbSet<T> _dbSet;
+        public BaseRepository(AppDbContext context)
+        {
+            _dbcontext = context;
+            _dbSet = context.Set<T>();
+        }
         public void Add(T entity)
         {
             throw new NotImplementedException();
