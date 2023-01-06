@@ -1,10 +1,10 @@
-﻿using OnlineShop.Domain.Enums;
+﻿using OnlineShop.DataAccess.Interfaces.Common;
+using OnlineShop.Domain.Enums;
 
 namespace OnlineShop.Domain.Entities.Users
 {
-    public class User
+    public class User : BaseEntity
     {
-        public long Id { get; set; }
         public string FullName { get; set; } = String.Empty;
         public string PhoneNumber { get; set; } = String.Empty;
         public string Email { get; set; } = String.Empty;

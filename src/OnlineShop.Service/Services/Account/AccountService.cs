@@ -4,10 +4,11 @@ using OnlineShop.DataAccess.Interfaces;
 using OnlineShop.Domain.Entities.Users;
 using OnlineShop.Service.Dtos.Accounts;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Interfaces.Accounts;
 using OnlineShop.Service.Interfaces.Common.Security;
 using OnlineShop.Service.Services.Common.Security;
 
-namespace OnlineShop.Service.Services
+namespace OnlineShop.Service.Services.Account
 {
     public class AccountService : IAccountService
     {

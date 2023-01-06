@@ -1,11 +1,11 @@
-﻿using OnlineShop.Domain.Entities.Categorys;
+﻿using OnlineShop.DataAccess.Interfaces.Common;
+using OnlineShop.Domain.Entities.Categorys;
 using OnlineShop.Domain.Entities.Users;
 
 namespace OnlineShop.Domain.Entities.Announcements
 {
-    public class Announcement
+    public class Announcement :BaseEntity
     {
-        public long Id { get; set; }
         public string Title { get; set; } = String.Empty;
         public long CategorieId { get; set; }
         public virtual Categorie Categorie { get; set; } = null!;

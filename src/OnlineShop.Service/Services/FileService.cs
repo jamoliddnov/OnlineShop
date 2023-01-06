@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using OnlineShop.Domain.Entities.Users;
 using OnlineShop.Service.Common.Helpers;
 using OnlineShop.Service.Interfaces;
 
@@ -15,7 +16,6 @@ namespace OnlineShop.Service.Services
         }
         public async Task<string> SaveImageAsync(IFormFile fromFile)
         {
-
 
             string imageName = ImageHelper.MakeImageName(fromFile.FileName);
 

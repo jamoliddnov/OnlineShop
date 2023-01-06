@@ -9,8 +9,6 @@
   <ItemGroup>
     <Folder Include="Configurations\" />
     <Folder Include="Interfaces\Common\" />
-    <Folder Include="Interfaces\Categories\" />
-    <Folder Include="Interfaces\SavedAds\" />
     <Folder Include="Repositories\Common\" />
   </ItemGroup>
 
