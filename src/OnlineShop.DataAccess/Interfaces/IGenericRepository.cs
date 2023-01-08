@@ -1,5 +1,4 @@
-﻿using OnlineShop.DataAccess.Interfaces;
-using OnlineShop.DataAccess.Interfaces.Common;
+﻿using OnlineShop.DataAccess.Interfaces.Common;
 using System.Linq.Expressions;
 
 namespace OnlineShop.DataAccess.Interfaces

@@ -7,7 +7,7 @@ namespace OnlineShop.DataAccess.Interfaces
     {
         public Task<T?> FirstByIdAsync(long id);
         public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> expression);
-        public void Add(T entity);
+        public void Create(T entity);
         public void Delete(long id);
         public void Update(long id, T entity);
     }

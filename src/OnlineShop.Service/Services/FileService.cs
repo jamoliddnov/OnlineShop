@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using OnlineShop.Domain.Entities.Users;
 using OnlineShop.Service.Common.Helpers;
 using OnlineShop.Service.Interfaces;
 

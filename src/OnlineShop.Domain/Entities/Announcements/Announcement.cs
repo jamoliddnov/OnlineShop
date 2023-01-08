@@ -4,11 +4,11 @@ using OnlineShop.Domain.Entities.Users;
 
 namespace OnlineShop.Domain.Entities.Announcements
 {
-    public class Announcement :BaseEntity
+    public class Announcement : BaseEntity
     {
         public string Title { get; set; } = String.Empty;
         public long CategorieId { get; set; }
-        public virtual Categorie Categorie { get; set; } = null!;
+        public virtual Category Categorie { get; set; } = null!;
         public string ImagePath { get; set; } = String.Empty;
         public string Description { get; set; } = String.Empty;
         public string PhoneNumber { get; set; } = String.Empty;

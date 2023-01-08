@@ -2,7 +2,7 @@
 
 namespace OnlineShop.Domain.Entities.Categorys
 {
-    public class Categorie : BaseEntity
+    public class Category : BaseEntity
     {
         public string Name { get; set; } = String.Empty;
         public string Filr { get; set; } = String.Empty;
