@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Service.Dtos.Accounts;
-using OnlineShop.Service.Interfaces.Accounts;
+using OnlineShop.Service.Interfaces;
 
 namespace OnlineShop.Api.Controllers
 {

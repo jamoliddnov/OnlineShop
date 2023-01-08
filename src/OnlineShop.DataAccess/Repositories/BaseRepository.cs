@@ -16,14 +16,16 @@ namespace OnlineShop.DataAccess.Repositories
             _dbcontext = context;
             _dbSet = context.Set<T>();
         }
-        public void Add(T entity)
+        public virtual void Create(T entity)
         {
-            throw new NotImplementedException();
+            _dbcontext.Add(entity);
+            _dbcontext.SaveChangesAsync();
         }
 
-        public void Delete(long id)
+        public virtual void Delete(long id)
         {
-            throw new NotImplementedException();
+            var entiry = _dbSet.Find(id);
+            _dbSet.Remove(entiry);
         }
 
         public Task<T?> FirstByIdAsync(long id)
@@ -36,10 +38,12 @@ namespace OnlineShop.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public void Update(long id, T entity)
+        public virtual void Update(long id, T entity)
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
 
