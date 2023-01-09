@@ -8,6 +8,7 @@ namespace OnlineShop.Domain.Entities.Users
         public string FullName { get; set; } = String.Empty;
         public string PhoneNumber { get; set; } = String.Empty;
         public string Email { get; set; } = String.Empty;
+        public bool IsEmailConfirmed { get; set; } = false;
         public string PasswordHash { get; set; } = String.Empty;
         public string Salt { get; set; } = String.Empty;
         public string ImagePath { get; set; } = String.Empty;
