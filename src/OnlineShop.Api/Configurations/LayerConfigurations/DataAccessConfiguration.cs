@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.DataAccess.DbContexts;
+using OnlineShop.DataAccess.Interfaces.Common;
+using OnlineShop.DataAccess.Repositories.Common;
 
 namespace OnlineShop.Api.Configurations.LayerConfigurations
 {
@@ -9,6 +11,7 @@ namespace OnlineShop.Api.Configurations.LayerConfigurations
         {
             string connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
             builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

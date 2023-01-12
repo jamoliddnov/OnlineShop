@@ -1,6 +1,6 @@
 using OnlineShop.Api.Configurations.LayerConfigurations;
 using OnlineShop.DataAccess.Interfaces;
-using OnlineShop.DataAccess.Repositories.Account;
+using OnlineShop.DataAccess.Repositories;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Interfaces.Common.Security;
 using OnlineShop.Service.Services;
@@ -15,7 +15,7 @@ builder.ConfigureDataAccess();
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IAuthManagerService, AuthManagerService>();
-builder.Services.AddScoped<IAccountRepository, AccountRepositorie>();
+builder.Services.AddScoped<IAccountRepositorie, AccountRepositorie>();
 
 
 var app = builder.Build();

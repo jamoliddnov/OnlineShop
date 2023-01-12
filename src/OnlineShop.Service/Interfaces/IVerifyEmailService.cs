@@ -6,8 +6,6 @@ namespace OnlineShop.Service.Interfaces
     {
         Task SendCodeAsync(SendCodeToEmailViewModel email);
 
-        Task VerifyEmail(EmailVerifyViewModel emailVerify);
-
-        Task VerifyPasswordAsync(UserResetPasswordViewModel model);
+ 
     }
 }

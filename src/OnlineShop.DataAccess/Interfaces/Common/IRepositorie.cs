@@ -1,9 +1,8 @@
-﻿using OnlineShop.DataAccess.Interfaces.Common;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
-namespace OnlineShop.DataAccess.Interfaces
+namespace OnlineShop.DataAccess.Interfaces.Common
 {
-    public interface IRepository<T> where T : BaseEntity
+    public interface IRepositorie<T> where T : BaseEntity
     {
         public Task<T?> FirstByIdAsync(long id);
         public Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> expression);

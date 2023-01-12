@@ -1,10 +1,8 @@
 ﻿using OnlineShop.DataAccess.Interfaces.Common;
-using OnlineShop.Domain.Entities.Announcements;
-using OnlineShop.Domain.Entities.Users;
 
-namespace OnlineShop.Domain.Entities.SavedAds
+namespace OnlineShop.Domain.Entities
 {
-    public class SaveAds : BaseEntity
+    public class SavedAd : BaseEntity
     {
         public long AnnouncementId { get; set; }
         public virtual Announcement Announcement { get; set; } = default!;

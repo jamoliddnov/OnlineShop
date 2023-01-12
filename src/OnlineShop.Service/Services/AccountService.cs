@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.DataAccess.DbContexts;
 using OnlineShop.DataAccess.Interfaces;
-using OnlineShop.Domain.Entities.Users;
+using OnlineShop.DataAccess.Interfaces.Common;
+using OnlineShop.Domain.Entities;
 using OnlineShop.Service.Dtos.Accounts;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Interfaces.Common.Security;
@@ -11,16 +12,15 @@ namespace OnlineShop.Service.Services
 {
     public class AccountService : IAccountService
     {
-        private readonly AppDbContext _appDbContext;
         private readonly IFileService _fileService;
         private readonly IAuthManagerService _authManagerService;
-        private readonly IAccountRepository _accountRepositorie;
-        public AccountService(AppDbContext appDbContext, IFileService fileService, IAuthManagerService authManagerService, IAccountRepository accountRepositorie)
+        private readonly IUnitOfWork _appDbContext;
+        public AccountService(IFileService fileService, IAuthManagerService authManagerService, IUnitOfWork appDbContext)
         {
-            _appDbContext = appDbContext;
+
             _fileService = fileService;
             _authManagerService = authManagerService;
-            _accountRepositorie = accountRepositorie;
+            _appDbContext = appDbContext;
         }
         public async Task<string> LoginAsync(AccountLoginDto dto)
         {
@@ -52,8 +52,9 @@ namespace OnlineShop.Service.Services
             userEntity.Role = Domain.Enums.UserRole.User;
             userEntity.ImagePath = "";
 
-            _accountRepositorie.Create(userEntity);
-            return true;
+            _appDbContext.Users.Create(userEntity);
+            var resault = await _appDbContext.SaveChangesAsync();
+            return resault > 0;
         }
     }
 }

@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineShop.Domain.Entities.Announcements;
-using OnlineShop.Domain.Entities.Categorys;
-using OnlineShop.Domain.Entities.SavedAds;
-using OnlineShop.Domain.Entities.Users;
+using OnlineShop.Domain.Entities;
 
 namespace OnlineShop.DataAccess.DbContexts
 {
@@ -16,7 +13,7 @@ namespace OnlineShop.DataAccess.DbContexts
 
         public virtual DbSet<User> Users { get; set; } = default!;
         public virtual DbSet<Announcement> Announcements { get; set; } = default!;
-        public virtual DbSet<Category> Categories { get; set; } = default!;
-        public virtual DbSet<SaveAds> SaveAds { get; set; } = default!;
+        public virtual DbSet<Category> Categorys { get; set; } = default!;
+        public virtual DbSet<SavedAd> SavedAds { get; set; } = default!;
     }
 }

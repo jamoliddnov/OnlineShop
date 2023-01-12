@@ -1,52 +1,84 @@
 ﻿using OnlineShop.DataAccess.DbContexts;
-using OnlineShop.DataAccess.Interfaces.AnnouncementRepo;
+using OnlineShop.DataAccess.Interfaces;
+using OnlineShop.DataAccess.Interfaces.Common;
+using OnlineShop.Domain.Entities;
 using OnlineShop.Service.Interfaces;
 
 namespace OnlineShop.Service.Services
 {
-    internal class AnnouncementService : IAnnouncementService
+    public class AnnouncementService : IAnnouncementService
     {
-        private readonly AppDbContext _appDbContext;
-        private readonly IAnnouncementRepositorie _announcementRepositorie;
-        public AnnouncementService(AppDbContext appDbContext, IAnnouncementRepositorie announcementRepositorie)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public AnnouncementService(IUnitOfWork unitOfWork)
         {
-            _appDbContext = appDbContext;
-            _announcementRepositorie = announcementRepositorie;
+            this._unitOfWork = unitOfWork;
 
         }
 
-        public async Task<bool> CreateAsync(Domain.Entities.Announcements.Announcement announcement)
+        public async Task<bool> CreateAsync(Announcement announcement)
         {
-            announcement.CreateAt = DateTime.UtcNow;
-            announcement.UserId = 1;
+            try
+            {
+                announcement.CreateAt = DateTime.UtcNow.ToString();
+                announcement.UserId = 1;
+                announcement.CategoryId = 1;
+                announcement.LiceCount = 0;
 
-            _announcementRepositorie.Create(announcement);
-            return true;
+                _unitOfWork.Announcements.Create(announcement);
+                var res = await _unitOfWork.SaveChangesAsync();
+                return res > 0;
+            }
+            catch
+            {
+                return false;
+            }
         }
+
+
 
         public async Task<bool> DeleteAsync(long id)
         {
-            _announcementRepositorie.Delete(id);
-            return true;
+            try
+            {
+                _unitOfWork.Announcements.Delete(id);
+                _unitOfWork.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
 
         }
 
-        public async Task<Domain.Entities.Announcements.Announcement> GetAllAsync()
-        {
-            var resault = _announcementRepositorie.GetAll();
-            return (Domain.Entities.Announcements.Announcement)resault;
-        }
 
-        public async Task<Domain.Entities.Announcements.Announcement> GetByIdAsync(long id)
+        public async Task<IEnumerable<Announcement>> GetAllAsync()
         {
-            var resault = await _announcementRepositorie.FirstByIdAsync(id);
+            var resault = _unitOfWork.Announcements.GetAll();
             return resault;
         }
 
-        public async Task<bool> UpdateAsync(long id, Domain.Entities.Announcements.Announcement announcement)
+        public async Task<Announcement> GetByIdAsync(long id)
         {
-            _announcementRepositorie.Update(id, announcement);
-            return true;
+            var resault = await _unitOfWork.Announcements.FirstByIdAsync(id);
+            return resault;
         }
+
+        public async Task<bool> UpdateAsync(long id, Announcement announcement)
+        {
+            try
+            {
+
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
     }
 }

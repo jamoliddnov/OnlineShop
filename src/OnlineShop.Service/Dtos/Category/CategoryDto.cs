@@ -4,11 +4,11 @@
     {
         public string Category { get; set; } = String.Empty;
 
-        public static implicit operator OnlineShop.Domain.Entities.Categorys.Category(CategoryDto dto)
+        public static implicit operator Domain.Entities.Category(CategoryDto dto)
         {
-            return new Domain.Entities.Categorys.Category()
+            return new Domain.Entities.Category()
             {
-                Name = dto.Category
+                CategoryName = dto.Category
             };
         }
     }

@@ -15,9 +15,9 @@ namespace OnlineShop.Service.Dtos.Announcement
         [Required]
         public string PhoneNumber { get; set; } = String.Empty;
 
-        public static implicit operator OnlineShop.Domain.Entities.Announcements.Announcement(CreateAnnouncementDto createAnnouncement)
+        public static implicit operator Domain.Entities.Announcement(CreateAnnouncementDto createAnnouncement)
         {
-            return new OnlineShop.Domain.Entities.Announcements.Announcement()
+            return new Domain.Entities.Announcement()
             {
                 Title = createAnnouncement.Title,
                 ImagePath = createAnnouncement.ImagePath,

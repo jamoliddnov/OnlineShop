@@ -1,5 +1,6 @@
-﻿using OnlineShop.DataAccess.Interfaces.Categories;
-using OnlineShop.Domain.Entities.Categorys;
+﻿using OnlineShop.DataAccess.Interfaces;
+using OnlineShop.DataAccess.Interfaces.Common;
+using OnlineShop.Domain.Entities;
 using OnlineShop.Service.Dtos.Category;
 using OnlineShop.Service.Interfaces;
 
@@ -7,28 +8,36 @@ namespace OnlineShop.Service.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryRepositorie _categoryRepositorie;
-        public CategoryService(ICategoryRepositorie categoryRepositorie)
+        private readonly IUnitOfWork _repository;
+        public CategoryService(IUnitOfWork repository)
         {
-            _categoryRepositorie = categoryRepositorie;
+            this._repository = repository;
         }
 
-        public async Task<bool> CreateAsync(CategoryDto category)
+        public async Task<bool> CreateAsync(Category category)
         {
-            _categoryRepositorie.Create(category);
+            _repository.Categorys.Create(category);
+            _repository.SaveChangesAsync();
             return true;
+        }
+
+        public Task<bool> CreateAsync(CategoryDto category)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> DeleteAsync(long id)
         {
-            _categoryRepositorie.Delete(id);
+            _repository.Categorys.Delete(id);
+            _repository.SaveChangesAsync();
             return true;
         }
 
-        public async Task<Category> GetAllAsync()
+        public async Task<IEnumerable<Category>> GetAllAsync()
         {
-            var resault = _categoryRepositorie.GetAll();
-            return (Category)resault;
+            var resault = _repository.Categorys.GetAll();
+            return resault;
         }
+
     }
 }

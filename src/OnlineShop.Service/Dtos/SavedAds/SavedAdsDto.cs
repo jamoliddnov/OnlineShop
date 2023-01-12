@@ -1,4 +1,4 @@
-﻿using OnlineShop.Domain.Entities.SavedAds;
+﻿using OnlineShop.Domain.Entities;
 
 namespace OnlineShop.Service.Dtos.SavedAds
 {
@@ -7,9 +7,9 @@ namespace OnlineShop.Service.Dtos.SavedAds
         public long UserId { get; set; }
         public long AnnouncementId { get; set; }
 
-        public static implicit operator SaveAds(SavedAdsDto ads)
+        public static implicit operator SavedAd(SavedAdsDto ads)
         {
-            return new SaveAds()
+            return new SavedAd()
             {
                 UserId = ads.UserId,
                 AnnouncementId = ads.AnnouncementId,
