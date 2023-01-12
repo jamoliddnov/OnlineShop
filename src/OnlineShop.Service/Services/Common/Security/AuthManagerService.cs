@@ -1,4 +1,4 @@
-﻿using OnlineShop.Domain.Entities.Users;
+﻿using OnlineShop.Domain.Entities;
 using OnlineShop.Service.Interfaces.Common.Security;
 
 namespace OnlineShop.Service.Services.Common.Security

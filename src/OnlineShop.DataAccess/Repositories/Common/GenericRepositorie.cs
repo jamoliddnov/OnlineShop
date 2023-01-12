@@ -1,14 +1,13 @@
 ﻿using OnlineShop.DataAccess.DbContexts;
-using OnlineShop.DataAccess.Interfaces;
 using OnlineShop.DataAccess.Interfaces.Common;
 using System.Linq.Expressions;
 
-namespace OnlineShop.DataAccess.Repositories
+namespace OnlineShop.DataAccess.Repositories.Common
 {
-    public class GenericRepository<T> : BaseRepository<T>, IGenericRepository<T>
+    public class GenericRepositorie<T> : BaseRepositorie<T>, IGenericRepositorie<T>
         where T : BaseEntity
     {
-        public GenericRepository(AppDbContext context) : base(context)
+        public GenericRepositorie(AppDbContext context) : base(context)
         {
         }
 

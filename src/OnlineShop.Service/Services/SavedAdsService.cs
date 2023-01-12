@@ -1,5 +1,7 @@
-﻿using OnlineShop.DataAccess.Interfaces.SavedAds;
-using OnlineShop.Domain.Entities.SavedAds;
+﻿using OnlineShop.DataAccess.Interfaces;
+using OnlineShop.DataAccess.Interfaces.Common;
+using OnlineShop.DataAccess.Repositories;
+using OnlineShop.Domain.Entities;
 using OnlineShop.Service.Dtos.SavedAds;
 using OnlineShop.Service.Interfaces;
 
@@ -7,34 +9,36 @@ namespace OnlineShop.Service.Services
 {
     public class SavedAdsService : ISavedAdsService
     {
-        private readonly ISavedAdsRepositorie _savedAdsRepositorie;
-        public SavedAdsService(ISavedAdsRepositorie savedAdsRepositorie)
+        private readonly IUnitOfWork _savedAdsRepositorie;
+        public SavedAdsService(IUnitOfWork savedAdsRepositorie)
         {
             this._savedAdsRepositorie = savedAdsRepositorie;
         }
 
         public async Task<bool> CreateAsync(SavedAdsDto dto)
         {
-            _savedAdsRepositorie.Create(dto);
+            _savedAdsRepositorie.SavedAds.Create(dto);
             return true;
         }
 
         public async Task<bool> DeleteAsync(long id)
         {
-            _savedAdsRepositorie.Delete(id);
+            _savedAdsRepositorie.SavedAds.Delete(id);
             return true;
         }
 
-        public async Task<SaveAds> GetAllAsync()
+        public async Task<IEnumerable<SavedAd>> GetAllAsync()
         {
-            var resault = _savedAdsRepositorie.GetAll();
-            return (SaveAds)resault;
-        }
-
-        public async Task<SaveAds> GetByIdAsync(long id)
-        {
-            var resault = await _savedAdsRepositorie.FirstByIdAsync(id);
+            var resault = _savedAdsRepositorie.SavedAds.GetAll();
             return resault;
         }
+
+        public async Task<SavedAd> GetByIdAsync(long id)
+        {
+            var resault = await _savedAdsRepositorie.SavedAds.FirstByIdAsync(id);
+            return resault;
+        }
+
+
     }
 }

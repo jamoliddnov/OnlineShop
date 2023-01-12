@@ -1,4 +1,4 @@
-﻿using OnlineShop.Domain.Entities.Users;
+﻿using OnlineShop.Domain.Entities;
 using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShop.Service.Dtos.Accounts

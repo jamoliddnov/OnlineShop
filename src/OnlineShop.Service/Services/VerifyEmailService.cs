@@ -10,77 +10,110 @@ namespace OnlineShop.Service.Services
 {
     public class VerifyEmailService : IVerifyEmailService
     {
-        private readonly IMemoryCache _memoryCache;
+      
         private readonly IEmailService _emailService;
-        private readonly AppDbContext _appDbContext;
-        public VerifyEmailService(IMemoryCache memoryCache, IEmailService emailService, AppDbContext appDbContext)
+
+        public VerifyEmailService( IEmailService emailService)
         {
-            this._memoryCache = memoryCache;
+         
             this._emailService = emailService;
-            this._appDbContext = appDbContext;
+
+
         }
 
         public async Task SendCodeAsync(SendCodeToEmailViewModel email)
         {
-            int code = new Random().Next(1000, 9999);
-
-            _memoryCache.Set(email.Email, code, TimeSpan.FromMinutes(3));
-
-            var message = new EmailMessageViewModel()
+            try
             {
-                To = email.Email,
-                Subject = "Verification code",
-                Body = code
-            };
+                int code = new Random().Next(1000, 9999);
 
-            await _emailService.SendAsync(message);
-        }
-
-        public async Task VerifyEmail(EmailVerifyViewModel emailVerify)
-        {
-            var entity = await _appDbContext.Users.FirstOrDefaultAsync(user => user.Email == emailVerify.Email);
-            if (entity == null)
-            {
-                throw new StatusCodeException(HttpStatusCode.NotFound, "User not found!");
-            }
-            if (_memoryCache.TryGetValue(emailVerify.Email, out int exceptedCode))
-            {
-                if (exceptedCode != emailVerify.Code)
+                var message = new EmailMessageViewModel()
                 {
-                    throw new StatusCodeException(HttpStatusCode.BadRequest, "Code is wrong");
-                }
+                    To = email.Email,
+                    Subject = "Verification code",
+                    Body = code
+                };
 
-                entity.IsEmailConfirmed = true;
-                _appDbContext.Update(entity);
-                await _appDbContext.SaveChangesAsync();
+                var resault = _emailService.SendAsync(message);
+             
             }
-            else
+            catch
             {
-                throw new StatusCodeException(HttpStatusCode.BadRequest, "Code is expired");
+              
             }
         }
 
-        public async Task VerifyPasswordAsync(UserResetPasswordViewModel model)
-        {
-            var user = await _appDbContext.Users.FirstOrDefaultAsync(p => p.Email == model.Email);
+        //private readonly IMemoryCache _memoryCache;
+        //private readonly IEmailService _emailService;
+        //private readonly AppDbContext _appDbContext;
+        //public VerifyEmailService(IMemoryCache memoryCache, IEmailService emailService, AppDbContext appDbContext)
+        //{
+        //    this._memoryCache = memoryCache;
+        //    this._emailService = emailService;
+        //    this._appDbContext = appDbContext;
+        //}
 
-            if (user is null)
-            {
-                throw new StatusCodeException(HttpStatusCode.NotFound, "User not found");
-            }
+        //public async Task SendCodeAsync(SendCodeToEmailViewModel email)
+        //{
+        //    int code = new Random().Next(1000, 9999);
 
-            if (_memoryCache.TryGetValue(model.Email, out int code))
-            {
-                if (code != model.Code)
-                {
-                    throw new StatusCodeException(HttpStatusCode.BadRequest, "Code is wrong");
-                }
-            }
-            else
-            {
-                throw new StatusCodeException(HttpStatusCode.BadRequest, "Code is expired");
-            }
+        //    _memoryCache.Set(email.Email, code, TimeSpan.FromMinutes(3));
 
-        }
+        //    var message = new EmailMessageViewModel()
+        //    {
+        //        To = email.Email,
+        //        Subject = "Verification code",
+        //        Body = code
+        //    };
+
+        //    await _emailService.SendAsync(message);
+        //}
+
+        //public async Task VerifyEmail(EmailVerifyViewModel emailVerify)
+        //{
+        //    var entity = await _appDbContext.Users.FirstOrDefaultAsync(user => user.Email == emailVerify.Email);
+        //    if (entity == null)
+        //    {
+        //        throw new StatusCodeException(HttpStatusCode.NotFound, "User not found!");
+        //    }
+        //    if (_memoryCache.TryGetValue(emailVerify.Email, out int exceptedCode))
+        //    {
+        //        if (exceptedCode != emailVerify.Code)
+        //        {
+        //            throw new StatusCodeException(HttpStatusCode.BadRequest, "Code is wrong");
+        //        }
+
+        //        entity.IsEmailConfirmed = true;
+        //        _appDbContext.Update(entity);
+        //        await _appDbContext.SaveChangesAsync();
+        //    }
+        //    else
+        //    {
+        //        throw new StatusCodeException(HttpStatusCode.BadRequest, "Code is expired");
+        //    }
+        //}
+
+        //public async Task VerifyPasswordAsync(UserResetPasswordViewModel model)
+        //{
+        //    var user = await _appDbContext.Users.FirstOrDefaultAsync(p => p.Email == model.Email);
+
+        //    if (user is null)
+        //    {
+        //        throw new StatusCodeException(HttpStatusCode.NotFound, "User not found");
+        //    }
+
+        //    if (_memoryCache.TryGetValue(model.Email, out int code))
+        //    {
+        //        if (code != model.Code)
+        //        {
+        //            throw new StatusCodeException(HttpStatusCode.BadRequest, "Code is wrong");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        throw new StatusCodeException(HttpStatusCode.BadRequest, "Code is expired");
+        //    }
+
+        //}
     }
 }
