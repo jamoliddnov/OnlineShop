@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Server.IIS.Core;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.DataAccess.Interfaces.Common;
 using OnlineShop.Domain.Entities;
 using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Dtos.Announcement;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Interfaces.Common;
+using Org.BouncyCastle.Math.EC.Rfc7748;
 
 namespace OnlineShop.Service.Services
 {
@@ -11,12 +14,14 @@ namespace OnlineShop.Service.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileService _fileService;
+        private readonly IPaginatorService _paginatorService;
         
 
-        public AnnouncementService(IUnitOfWork unitOfWork, IFileService fileService)
+        public AnnouncementService(IUnitOfWork unitOfWork, IFileService fileService, IPaginatorService paginatorService)
         {
             this._unitOfWork = unitOfWork;
             this._fileService = fileService;
+            this._paginatorService = paginatorService;
         }
 
         public async Task<bool> CreateAsync(CreateAnnouncementDto announcements)
@@ -64,9 +69,15 @@ namespace OnlineShop.Service.Services
 
         public async Task<IEnumerable<Announcement>> GetAllAsync(PaginationParams @paginationParams)
         {
-            var resault = _unitOfWork.Announcements.GetAll();
-            return resault;
+            var query = _unitOfWork.Announcements.GetAll().OrderBy(x => x.Id).AsNoTracking().ToList();
+            var data = await _paginatorService.ToPagedAsync(query, @paginationParams.PageNumber, @paginationParams.PageSize);
+            return data;
         }
+
+        //var query = _unitOfWork.Orders.GetAll().OrderBy(x => x.CreatedAt)
+        //   .AsNoTracking().ToList().ConvertAll(x => _mapper.Map<OrderViewModel>(x));
+        //var data = await _paginator.ToPagedAsync(query, @paginationParams.PageNumber, @paginationParams.PageSize);
+        //    return data;
 
         public Task<IEnumerable<Announcement>> GetAllByIdAsync(int id)
         {

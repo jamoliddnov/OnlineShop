@@ -16,18 +16,18 @@ namespace OnlineShop.Api.Controllers
         {
             this._savedAdsService = savedAdsService;
         }
-        [HttpGet, Authorize(Roles = "User")]
+        [HttpGet, AllowAnonymous]
         public async Task<IActionResult> GetAllAsync(int page)
         {
             return Ok(await _savedAdsService.GetAllAsync(new PaginationParams(page, _pageSize)));
         }
 
-        [HttpPost, Authorize(Roles = "User")]
+        [HttpPost, AllowAnonymous]
         public async Task<IActionResult> CreateAsync([FromForm] SavedAdsDto dto)
         {
             return Ok(await _savedAdsService.CreateAsync(dto));
         }
-        [HttpDelete("id"), Authorize(Roles = "User")]
+        [HttpDelete("id"), AllowAnonymous]
         public async Task<IActionResult> DeleteAsync(long id)
         {
             return Ok(await _savedAdsService.DeleteAsync(id));
