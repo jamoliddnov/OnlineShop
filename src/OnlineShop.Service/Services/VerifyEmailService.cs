@@ -1,46 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Caching.Memory;
-using OnlineShop.DataAccess.DbContexts;
-using OnlineShop.Service.Exceptions;
+﻿using Microsoft.Extensions.Caching.Memory;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.ViewModels.User;
-using System.Net;
 
 namespace OnlineShop.Service.Services
 {
     public class VerifyEmailService : IVerifyEmailService
     {
-      
+
         private readonly IEmailService _emailService;
-
-        public VerifyEmailService( IEmailService emailService)
+        private readonly IMemoryCache _cache;
+        public VerifyEmailService(IEmailService emailService, IMemoryCache memoryCache)
         {
-         
-            this._emailService = emailService;
 
+            this._emailService = emailService;
+            this._cache = memoryCache;
 
         }
 
         public async Task SendCodeAsync(SendCodeToEmailViewModel email)
         {
-            try
-            {
-                int code = new Random().Next(1000, 9999);
+            int code = new Random().Next(1000, 9999);
 
-                var message = new EmailMessageViewModel()
-                {
-                    To = email.Email,
-                    Subject = "Verification code",
-                    Body = code
-                };
+            _cache.Set(email.Email, code, TimeSpan.FromMinutes(3));
 
-                var resault = _emailService.SendAsync(message);
-             
-            }
-            catch
+            var message = new EmailMessageViewModel()
             {
-              
-            }
+                To = email.Email,
+                Subject = "Verification code",
+                Body = code,
+            };
+
+            await _emailService.SendAsync(message);
         }
 
         //private readonly IMemoryCache _memoryCache;

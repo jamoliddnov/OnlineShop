@@ -14,7 +14,7 @@ namespace OnlineShop.DataAccess.Repositories.Common
 
         public ICategoryRepositorie Categorys { get; }
 
-        public ISavedAdRepositorie SavedAds { get; }
+
 
         public UnitOfWork(AppDbContext appDbContext)
         {
@@ -22,12 +22,19 @@ namespace OnlineShop.DataAccess.Repositories.Common
             Users = new AccountRepositorie(appDbContext);
             Announcements = new AnnouncementRepositorie(appDbContext);
             Categorys = new CategoryRepositorie(appDbContext);
-            SavedAds = new SavedAdsRepositorie(appDbContext);
+
         }
 
         public async Task<int> SaveChangesAsync()
         {
-            return await _appDbContext.SaveChangesAsync();
+            try
+            {
+                return await _appDbContext.SaveChangesAsync();
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

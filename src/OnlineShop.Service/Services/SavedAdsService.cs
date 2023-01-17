@@ -1,7 +1,7 @@
-﻿using OnlineShop.DataAccess.Interfaces;
-using OnlineShop.DataAccess.Interfaces.Common;
-using OnlineShop.DataAccess.Repositories;
+﻿using AutoMapper;
+using OnlineShop.DataAccess.Interfaces;
 using OnlineShop.Domain.Entities;
+using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Dtos.SavedAds;
 using OnlineShop.Service.Interfaces;
 
@@ -9,36 +9,39 @@ namespace OnlineShop.Service.Services
 {
     public class SavedAdsService : ISavedAdsService
     {
-        private readonly IUnitOfWork _savedAdsRepositorie;
-        public SavedAdsService(IUnitOfWork savedAdsRepositorie)
+        private readonly ISavedAdRepositorie _savedAdsRepositorie;
+        private readonly IMapper _mapper;
+        public SavedAdsService(ISavedAdRepositorie savedAdsRepositorie, IMapper mapper)
         {
             this._savedAdsRepositorie = savedAdsRepositorie;
+            this._mapper = mapper;
         }
 
         public async Task<bool> CreateAsync(SavedAdsDto dto)
         {
-            _savedAdsRepositorie.SavedAds.Create(dto);
+
+            var savedAds = _mapper.Map<SavedAd>(dto);
+            _savedAdsRepositorie.Create(dto);
             return true;
         }
 
         public async Task<bool> DeleteAsync(long id)
         {
-            _savedAdsRepositorie.SavedAds.Delete(id);
+            _savedAdsRepositorie.Delete(id);
             return true;
         }
 
-        public async Task<IEnumerable<SavedAd>> GetAllAsync()
+        public async Task<IEnumerable<SavedAd>> GetAllAsync(PaginationParams @paginationParams)
         {
-            var resault = _savedAdsRepositorie.SavedAds.GetAll();
-            return resault;
+            try
+            {
+                var resault = await _savedAdsRepositorie.GetAllSavedAdAsync();
+                return resault;
+            }
+            catch
+            {
+                return null;
+            }
         }
-
-        public async Task<SavedAd> GetByIdAsync(long id)
-        {
-            var resault = await _savedAdsRepositorie.SavedAds.FirstByIdAsync(id);
-            return resault;
-        }
-
-
     }
 }

@@ -6,6 +6,6 @@ namespace OnlineShop.Service.Interfaces
     {
         Task SendCodeAsync(SendCodeToEmailViewModel email);
 
- 
+
     }
 }

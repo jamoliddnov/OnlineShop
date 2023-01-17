@@ -12,14 +12,16 @@ namespace OnlineShop.Service.Services
     {
         private readonly IConfiguration _config;
 
-        public EmailService(IConfiguration config)
+        public EmailService(IConfiguration configuration)
         {
-            this._config = config.GetSection("Email");
+            this._config = configuration.GetSection("EmailSettings");
         }
 
-        public async Task SendAsync(EmailMessageViewModel emailMessage)
+
+        public async Task<bool> SendAsync(EmailMessageViewModel emailMessage)
         {
             var email = new MimeMessage();
+
             email.From.Add(MailboxAddress.Parse(_config["Email"]));
             email.To.Add(MailboxAddress.Parse(emailMessage.To));
             email.Subject = emailMessage.Subject;
@@ -30,6 +32,7 @@ namespace OnlineShop.Service.Services
             await smtp.AuthenticateAsync(_config["Email"], _config["Password"]);
             await smtp.SendAsync(email);
             await smtp.DisconnectAsync(true);
+            return true;
         }
     }
 }
