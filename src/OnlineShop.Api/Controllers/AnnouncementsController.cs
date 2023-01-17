@@ -29,12 +29,12 @@ namespace OnlineShop.Api.Controllers
             return Ok();
         }
 
-        [HttpPost, Authorize(Roles = "User")]
+        [HttpPost, AllowAnonymous]
         public async Task<IActionResult> CreateAsync([FromForm] CreateAnnouncementDto createAnnouncement)
         {
             return Ok(await _announcementService.CreateAsync(createAnnouncement));
         }
-        [HttpPut("id"), Authorize(Roles = "User")]
+        [HttpPut("id"), AllowAnonymous]
         public async Task<IActionResult> UpdateAsync(long id, [FromForm] CreateAnnouncementDto createAnnouncement)
         {
             return Ok(await _announcementService.UpdateAsync(id, createAnnouncement));

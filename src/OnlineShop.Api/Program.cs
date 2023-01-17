@@ -4,8 +4,10 @@ using OnlineShop.Api.Configurations;
 using OnlineShop.DataAccess.Interfaces;
 using OnlineShop.DataAccess.Repositories;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Interfaces.Common;
 using OnlineShop.Service.Interfaces.Common.Security;
 using OnlineShop.Service.Services;
+using OnlineShop.Service.Services.Common;
 using OnlineShop.Service.Services.Common.Security;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +20,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
 {
-    build.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+    build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
 
 
@@ -34,6 +36,8 @@ builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
 builder.Services.AddScoped<ISavedAdsService, SavedAdsService>();
 builder.Services.AddScoped<ISavedAdRepositorie, SavedAdsRepositorie>();
 builder.Services.AddScoped<IMemoryCache, MemoryCache>();
+builder.Services.AddScoped<IPaginatorService, PaginatorService>();
+
 
 
 

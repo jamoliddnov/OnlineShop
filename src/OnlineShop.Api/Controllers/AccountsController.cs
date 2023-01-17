@@ -34,7 +34,7 @@ namespace OnlineShop.Api.Controllers
             return Ok(resault);
         }
 
-        [HttpPost("image"), Authorize(Roles = "User")]
+        [HttpPost("image")]
         public async Task<IActionResult> ImageAddUserProfil([FromForm] AccountImageProfilDto dto)
         {
             return Ok(await _accountService.ImageProfileAsync(dto));

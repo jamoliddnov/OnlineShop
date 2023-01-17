@@ -7,7 +7,7 @@ namespace OnlineShop.Service.Dtos.Announcement
     {
         [Required]
         public string Title { get; set; } = String.Empty;
-        [Required]
+        [Required ]
         public string Categorie { get; set; }
         [Required]
         public IFormFile Image { get; set; }
