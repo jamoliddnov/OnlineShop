@@ -5,24 +5,21 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace OnlineShop.DataAccess.Migrations
 {
-    /// <inheritdoc />
-    public partial class CreateData : Migration
+    public partial class CaretaAdd : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "Categorys",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Filr = table.Column<string>(type: "text", nullable: false)
+                    CategoryName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_Categorys", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -34,6 +31,7 @@ namespace OnlineShop.DataAccess.Migrations
                     FullName = table.Column<string>(type: "text", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
+                    IsEmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: false),
                     Salt = table.Column<string>(type: "text", nullable: false),
                     ImagePath = table.Column<string>(type: "text", nullable: false),
@@ -51,22 +49,22 @@ namespace OnlineShop.DataAccess.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
-                    CategorieId = table.Column<long>(type: "bigint", nullable: false),
-                    CategorieId1 = table.Column<int>(type: "integer", nullable: false),
+                    CategoryId = table.Column<long>(type: "bigint", nullable: false),
                     ImagePath = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
-                    CreateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreateAt = table.Column<string>(type: "text", nullable: false),
                     LiceCount = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Announcements", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Announcements_Categories_CategorieId1",
-                        column: x => x.CategorieId1,
-                        principalTable: "Categories",
+                        name: "FK_Announcements_Categorys_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categorys",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -78,7 +76,7 @@ namespace OnlineShop.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SaveAds",
+                name: "SavedAds",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -88,15 +86,15 @@ namespace OnlineShop.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SaveAds", x => x.Id);
+                    table.PrimaryKey("PK_SavedAds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SaveAds_Announcements_AnnouncementId",
+                        name: "FK_SavedAds_Announcements_AnnouncementId",
                         column: x => x.AnnouncementId,
                         principalTable: "Announcements",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SaveAds_Users_UserId",
+                        name: "FK_SavedAds_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -104,9 +102,9 @@ namespace OnlineShop.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Announcements_CategorieId1",
+                name: "IX_Announcements_CategoryId",
                 table: "Announcements",
-                column: "CategorieId1");
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Announcements_UserId",
@@ -114,27 +112,26 @@ namespace OnlineShop.DataAccess.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SaveAds_AnnouncementId",
-                table: "SaveAds",
+                name: "IX_SavedAds_AnnouncementId",
+                table: "SavedAds",
                 column: "AnnouncementId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SaveAds_UserId",
-                table: "SaveAds",
+                name: "IX_SavedAds_UserId",
+                table: "SavedAds",
                 column: "UserId");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SaveAds");
+                name: "SavedAds");
 
             migrationBuilder.DropTable(
                 name: "Announcements");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Categorys");
 
             migrationBuilder.DropTable(
                 name: "Users");

@@ -9,21 +9,21 @@ namespace OnlineShop.Service.Services
     {
         private readonly string images = "images";
         private readonly string _rootpath;
-        public FileService(IWebHostEnvironment webHostEnviroment)
+        public FileService(IWebHostEnvironment webHostEnvironment)
         {
-            _rootpath = webHostEnviroment.WebRootPath;
+            _rootpath = webHostEnvironment.WebRootPath;
         }
-        public async Task<string> SaveImageAsync(IFormFile fromFile)
+
+        public async Task<string> SaveImageAsync(IFormFile formFile)
         {
-
-            string imageName = ImageHelper.MakeImageName(fromFile.FileName);
-
-            string imagePath = Path.Combine(_rootpath, images, imageName);
-            var stream = new FileStream(imagePath, FileMode.Create);
+            string imageName = ImageHelper.MakeImageName(formFile.FileName);
             try
             {
-                await fromFile.CopyToAsync(stream);
-                return Path.Combine(_rootpath, imageName);
+                string imagePath = System.IO.Path.Combine("wwwroot", images, imageName);
+                var stream = new FileStream(imagePath, FileMode.Create);
+
+                await formFile.CopyToAsync(stream);
+                return Path.Combine(images, imageName);
             }
             catch
             {

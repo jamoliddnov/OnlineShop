@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using OnlineShop.DataAccess.DbContexts;
-using OnlineShop.DataAccess.Interfaces;
-using OnlineShop.DataAccess.Interfaces.Common;
+﻿using OnlineShop.DataAccess.Interfaces.Common;
 using OnlineShop.Domain.Entities;
+using OnlineShop.Service.Dtos.Account;
 using OnlineShop.Service.Dtos.Accounts;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Interfaces.Common.Security;
@@ -22,39 +20,61 @@ namespace OnlineShop.Service.Services
             _authManagerService = authManagerService;
             _appDbContext = appDbContext;
         }
+
+        public async Task<bool> ImageProfileAsync(AccountImageProfilDto dto)
+        {
+            string imagePath = await _fileService.SaveImageAsync(dto.Image);
+            return true;
+        }
+
         public async Task<string> LoginAsync(AccountLoginDto dto)
         {
-            var user = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
-            if (user is null)
+            try
             {
-                return "Email not found";
-            }
+                var user = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+                if (user is null)
+                {
+                    return "Email not found";
+                }
 
-            var hashResault = PasswordHash.Verify(dto.Password, user.PasswordHash, user.Salt);
-            if (hashResault)
-            {
-                return _authManagerService.GenereteToken(user);
+                var hashResault = PasswordHash.Verify(dto.Password, user.PasswordHash, user.Salt);
+                if (hashResault)
+                {
+                    return _authManagerService.GenereteToken(user);
+                }
+                return "Error";
             }
-            return "Error";
+            catch
+            {
+                return "";
+            }
         }
 
         public async Task<bool> RegisterAsync(AccountRegisterDto dto)
         {
-            var emailUser = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
-            if (emailUser is not null)
+            try
             {
-                return false;
-            }
-            var hashResault = PasswordHash.Hash(dto.Password);
-            var userEntity = (User)dto;
-            userEntity.PasswordHash = hashResault.Hash;
-            userEntity.Salt = hashResault.Salt;
-            userEntity.Role = Domain.Enums.UserRole.User;
-            userEntity.ImagePath = "";
+                var emailUser = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+                if (emailUser is not null)
+                {
+                    return false;
+                }
+                var hashResault = PasswordHash.Hash(dto.Password);
+                var userEntity = (User)dto;
+                userEntity.PasswordHash = hashResault.Hash;
+                userEntity.Salt = hashResault.Salt;
+                userEntity.Role = Domain.Enums.UserRole.User;
+                userEntity.IsEmailConfirmed = false;
+                userEntity.ImagePath = "";
 
-            _appDbContext.Users.Create(userEntity);
-            var resault = await _appDbContext.SaveChangesAsync();
-            return resault > 0;
+                _appDbContext.Users.Create(userEntity);
+                var resault = await _appDbContext.SaveChangesAsync();
+                return resault > 0;
+            }
+            catch
+            {
+                return true;
+            }
         }
     }
 }

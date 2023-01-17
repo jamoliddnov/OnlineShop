@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace OnlineShop.Service.Dtos.Announcement
 {
@@ -7,11 +8,13 @@ namespace OnlineShop.Service.Dtos.Announcement
         [Required]
         public string Title { get; set; } = String.Empty;
         [Required]
-        public string Categorie { get; set; } = null!;
+        public string Categorie { get; set; }
         [Required]
-        public string ImagePath { get; set; } = String.Empty;
+        public IFormFile Image { get; set; }
         [Required]
         public string Description { get; set; } = String.Empty;
+        [Required]
+        public double Price { get; set; }
         [Required]
         public string PhoneNumber { get; set; } = String.Empty;
 
@@ -20,9 +23,10 @@ namespace OnlineShop.Service.Dtos.Announcement
             return new Domain.Entities.Announcement()
             {
                 Title = createAnnouncement.Title,
-                ImagePath = createAnnouncement.ImagePath,
+                CategoryId = long.Parse(createAnnouncement.Categorie),
                 Description = createAnnouncement.Description,
                 PhoneNumber = createAnnouncement.PhoneNumber,
+                Price = createAnnouncement.Price
             };
         }
     }

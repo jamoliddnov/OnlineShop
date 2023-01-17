@@ -1,7 +1,8 @@
-﻿using OnlineShop.DataAccess.DbContexts;
-using OnlineShop.DataAccess.Interfaces;
+﻿using Microsoft.AspNetCore.Server.IIS.Core;
 using OnlineShop.DataAccess.Interfaces.Common;
 using OnlineShop.Domain.Entities;
+using OnlineShop.Service.Common.Utils;
+using OnlineShop.Service.Dtos.Announcement;
 using OnlineShop.Service.Interfaces;
 
 namespace OnlineShop.Service.Services
@@ -9,21 +10,29 @@ namespace OnlineShop.Service.Services
     public class AnnouncementService : IAnnouncementService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IFileService _fileService;
+        
 
-        public AnnouncementService(IUnitOfWork unitOfWork)
+        public AnnouncementService(IUnitOfWork unitOfWork, IFileService fileService)
         {
             this._unitOfWork = unitOfWork;
-
+            this._fileService = fileService;
         }
 
-        public async Task<bool> CreateAsync(Announcement announcement)
+        public async Task<bool> CreateAsync(CreateAnnouncementDto announcements)
         {
             try
             {
+                var announcement = (Announcement)announcements;
+
                 announcement.CreateAt = DateTime.UtcNow.ToString();
                 announcement.UserId = 1;
-                announcement.CategoryId = 1;
                 announcement.LiceCount = 0;
+
+                if (announcements.Image is not null)
+                {
+                    announcement.ImagePath = await _fileService.SaveImageAsync(announcements.Image);
+                }
 
                 _unitOfWork.Announcements.Create(announcement);
                 var res = await _unitOfWork.SaveChangesAsync();
@@ -53,10 +62,15 @@ namespace OnlineShop.Service.Services
         }
 
 
-        public async Task<IEnumerable<Announcement>> GetAllAsync()
+        public async Task<IEnumerable<Announcement>> GetAllAsync(PaginationParams @paginationParams)
         {
             var resault = _unitOfWork.Announcements.GetAll();
             return resault;
+        }
+
+        public Task<IEnumerable<Announcement>> GetAllByIdAsync(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Announcement> GetByIdAsync(long id)
@@ -69,9 +83,15 @@ namespace OnlineShop.Service.Services
         {
             try
             {
+                announcement.CreateAt = DateTime.UtcNow.ToString();
+                announcement.UserId = 2;
+                announcement.LiceCount = 0;
 
 
-                return true;
+                _unitOfWork.Announcements.Update(id, announcement);
+                var res = await _unitOfWork.SaveChangesAsync();
+                return res > 0;
+
             }
             catch
             {
