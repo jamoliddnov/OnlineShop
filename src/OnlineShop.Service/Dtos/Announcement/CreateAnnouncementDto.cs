@@ -7,7 +7,7 @@ namespace OnlineShop.Service.Dtos.Announcement
     {
         [Required]
         public string Title { get; set; } = String.Empty;
-        [Required ]
+        [Required]
         public string Categorie { get; set; }
         [Required]
         public IFormFile Image { get; set; }
@@ -15,7 +15,7 @@ namespace OnlineShop.Service.Dtos.Announcement
         public string Description { get; set; } = String.Empty;
         [Required]
         public double Price { get; set; }
-        [Required]
+        [Required, MaxLength(9), MinLength(9)]
         public string PhoneNumber { get; set; } = String.Empty;
 
         public static implicit operator Domain.Entities.Announcement(CreateAnnouncementDto createAnnouncement)

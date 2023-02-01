@@ -1,0 +1,48 @@
+﻿@using OnlineShop.Service.Dtos.Announcement
+@model CreateAnnouncementDto
+@{
+    Layout = "_UserLayout.cshtml";
+}
+<div class="wrapper container">
+    <form asp-controller="user" enctype="multipart/form-data" asp-action="addpostblock" method="post">
+        <div class=" container mt-5">                                  
+            <h4>Add Post</h4>
+                <h5 class="mt-3">Tell us about your advertisement</h5>
+                <input type="text" asp-for="Title" class="form-control mt-5 " placeholder="Enter a title">
+                <select class="form-select mt-4"  asp-for="Categorie">
+                    <option>Select category</option>
+                    <option value="1">Animals</option>
+                    <option value="2">Electronics</option>
+                    <option value="3">Fashion</option>
+                    <option value="4">Houses</option>
+                    <option value="5">Transport</option>
+                    <option value="6">Childworld</option>
+                </select>
+        </div>
+
+        <div class="addphoto container ">
+            <h5 class="p-2 ">You can upload your advertisement image :</h5>
+            <div class="addimage-wrapper d-flex gap-5 ms-5 mt-5">
+                <div class="image-area pt-5" id="display-img">
+                    <img src="../img/addpost.svg" width="40px" class="add-img" id="addimg">
+                    <input type="file" asp-for="Image" accept="image/png, image/jpg">
+                </div>
+            </div>
+        </div>
+
+        <div class="addabout container">
+            <h5 class="pb-4 pt-2">Write about your advertisement*</h5>
+            <input type="text" asp-for="Description" placeholder="Write here" class="about-input">
+        </div>
+
+        <div class="contact container">
+            <h5 class="pt-2">Information</h5>
+            <p class="mt-4">Price</p>
+            <input type="number" asp-for="Price" class="form-control" placeholder="Write your price">
+            <p class="mt-4">Your number</p>
+            <input type="number" asp-for="PhoneNumber" class="form-control " placeholder="Write your number">
+        </div>*
+        <input type="submit" class="btn btn-success" style="width:100%;" value="Ro'yxatdan o'tish" />
+       @* <a asp-controller="user" asp-action="addpostblock" class="btn btn-info text-light form-control mt-5">Ready</a>*@
+    </form>                                 
+</div>

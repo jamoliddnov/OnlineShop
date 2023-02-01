@@ -34,12 +34,6 @@ namespace OnlineShop.Api.Controllers
             return Ok(resault);
         }
 
-        [HttpPost("image")]
-        public async Task<IActionResult> ImageAddUserProfil([FromForm] AccountImageProfilDto dto)
-        {
-            return Ok(await _accountService.ImageProfileAsync(dto));
-        }
-
         [HttpPost("send-code-to-email")]
         public async Task<IActionResult> SendToEmail([FromForm] SendCodeToEmailViewModel email)
         {

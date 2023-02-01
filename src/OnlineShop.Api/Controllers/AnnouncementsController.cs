@@ -23,12 +23,6 @@ namespace OnlineShop.Api.Controllers
             return Ok(await _announcementService.GetAllAsync(new PaginationParams(page, _pageSize)));
         }
 
-        [HttpGet("idSort"), AllowAnonymous]
-        public async Task<IActionResult> GetAllByIdAsync(int id)
-        {
-            return Ok();
-        }
-
         [HttpPost, AllowAnonymous]
         public async Task<IActionResult> CreateAsync([FromForm] CreateAnnouncementDto createAnnouncement)
         {
@@ -44,10 +38,10 @@ namespace OnlineShop.Api.Controllers
         {
             return Ok(await _announcementService.DeleteAsync(id));
         }
-        [HttpGet("id")]
-        public async Task<IActionResult> GetByIdAsync(long id)
+        [HttpGet("category")]
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
-            return Ok(await _announcementService.GetByIdAsync(id));
+            return Ok(await _announcementService.GetAllCategoryAsync(id));
         }
 
     }

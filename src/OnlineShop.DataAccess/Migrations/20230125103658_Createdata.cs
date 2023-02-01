@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace OnlineShop.DataAccess.Migrations
 {
-    public partial class CaretaAdd : Migration
+    public partial class Createdata : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

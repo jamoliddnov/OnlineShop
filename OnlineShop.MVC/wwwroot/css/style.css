@@ -1,0 +1,27 @@
+﻿#cards {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    width: 23%;
+    box-shadow: 0 0 4px 3px pink;
+    text-align: center;
+    padding: 1.5em;
+    margin-bottom: 2em;
+}
+
+.card-title {
+    font-size: 1.3rem;
+}
+
+.card-text, .card-price {
+    font-weight: bold;
+    text-transform: capitalize;
+    margin: 1.5em;
+    font-size: 1.2rem;
+}
+
+.card-image {
+    width: 80%;
+}

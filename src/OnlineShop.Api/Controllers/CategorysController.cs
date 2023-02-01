@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Dtos.Category;
 using OnlineShop.Service.Interfaces;
