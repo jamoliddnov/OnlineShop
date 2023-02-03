@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.MVC.Models;
+using OnlineShop.Service.Common.Utils;
+using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.ViewModels;
 using System.Diagnostics;
 
 namespace OnlineShop.MVC.Controllers
@@ -8,15 +11,20 @@ namespace OnlineShop.MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        IAnnouncementService announcementService;
+        public HomeController(ILogger<HomeController> logger, IAnnouncementService announcementService)
         {
+            this.announcementService = announcementService;
             _logger = logger;
         }
 
-        public IActionResult Index()
+
+
+        public async Task<IActionResult> Index(int page = 1)
         {
-            return View();
+            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
+            announcemts = await announcementService.GetAllAsync(new PaginationParams(page, 20));
+            return View("Index", announcemts);
         }
 
 

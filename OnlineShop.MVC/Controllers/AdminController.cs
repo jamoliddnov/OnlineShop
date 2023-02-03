@@ -19,7 +19,7 @@ namespace OnlineShop.MVC.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("admin")]
         public async Task<IActionResult> Get()
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
@@ -27,20 +27,22 @@ namespace OnlineShop.MVC.Controllers
             return View("Post", announcemts);
         }
 
-        //[HttpGet("add")]
-        //public async Task<IActionResult> GetAdd(long id)
-        //{
-        //    IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-        //    announcemts = await this.announcementService.GetAllAsyncAdminAdd();
-        //    return View("Post", announcemts);
-        //}
-        //[HttpGet("remove")]
-        //public async Task<IActionResult> GetRemove(long id)
-        //{
-        //    IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-        //    announcemts = await this.announcementService.GetAllAsyncAdminRemove();
-        //    return View("Post", announcemts);
-        //}
+        [HttpGet("add")]
+        public async Task<IActionResult> Add(long id)
+        {
+            await this.announcementService.GetAllAsyncAdminAdd(id);
+            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
+            announcemts = await this.announcementService.GetAllAsyncAdmin();
+            return View("Post", announcemts);
+        }
 
+        [HttpGet("remove")]
+        public async Task<IActionResult> Remove(long id)
+        {
+            await this.announcementService.GetAllAsyncAdminRemove(id);
+            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
+            announcemts = await this.announcementService.GetAllAsyncAdmin();
+            return View("Post", announcemts);
+        }
     }
 }

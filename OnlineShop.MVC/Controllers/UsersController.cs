@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Dtos.Announcement;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.ViewModels;
 
 namespace OnlineShop.MVC.Controllers
 {
@@ -14,26 +17,35 @@ namespace OnlineShop.MVC.Controllers
         }
 
         [HttpGet("add")]
-        public async Task<IActionResult> Add()
+        public async Task<IActionResult> Add(int page)   
         {
-            return View("userAdd");
-        }
-
-        [HttpGet("addpost")]
-        public async Task<IActionResult> AddPost()
-        {
-            return View("userAddpost");
+            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
+            announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(page, 20));
+            return View("userAdd", announcemts);
         }
 
         [HttpPost("addpostblock")]
         public async Task<IActionResult> CreateAsync([FromForm] CreateAnnouncementDto dto)
         {
             var resault = await this.announcementService.CreateAsync(dto);
+
             if (resault)
             {
-                return View("userAdd");
+                IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
+                announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(1, 20));
+                return View("userAdd", announcemts);
             }
             return View(resault);
         }
+
+        [HttpGet("addpost")]
+        public async Task<IActionResult> AddPost()
+
+        {
+            return View("userAddPost");
+        }
+
+
+
     }
 }

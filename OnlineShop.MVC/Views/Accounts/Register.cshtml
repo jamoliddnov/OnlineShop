@@ -3,16 +3,7 @@
 @{
     Layout = "_AccountLayout.cshtml";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Design by foolishdeveloper.com -->
-    <title>Glassmorphism login Form Tutorial in html css</title>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <!--Stylesheet-->
     <style media="screen">
         *,
         *:before,
@@ -83,28 +74,28 @@
 
         input {
             display: block;
-            height: 30px;
+            height: 35px;
             width: 100%;
             background-color: white;
-            border-radius: 2px;
+            border-radius: 4px;
             padding: 0 10px;
             margin-top: 8px;
-            font-size: 10px;
+            font-size: 13px;
             font-weight: 200;
-        }
+         }
 
         ::placeholder {
             color: gray;
         }
 
         button {
-            margin-top: 40px;
+            margin-top: 20px;
             width: 100%;
+            height: 35px;
             background-color: wheat;
             color: gray;
-            padding: 15px 0;
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 13px;
+            text-align: center;
             border-radius: 5px;
             cursor: pointer;
         }
@@ -137,29 +128,27 @@
             }
 
     </style>
-</head>
-<body>
+<div>
     <form asp-controller="accounts" asp-action="register" method="post">
-        <h4>Register</h4>
+        <h4>Ro'yxatdan o'tish</h4>
 
 
-        <label for="name">Name</label>
+        <label for="name" class="required form-label">Name</label>
         <input type="text" placeholder="Name" asp-for="FullName">
 
-        <label for="phone">Phone</label>
-        <input type="text" placeholder="YYXXXXXXX" asp-for="PhoneNumber" >
+        <label for="phone" class="required form-label">Phone</label>
+        <input type="text" placeholder="+998YYXXXXXXX" asp-for="PhoneNumber" >
 
-        <label for="username">Email</label>
+        <label for="username" class="required form-label">Email</label>
         <input type="text" placeholder="Email" asp-for="Email">
 
-        <label for="password">Password</label>
+        <label for="password" class="required form-label">Password</label>
         <input type="password" placeholder="Password" asp-for="Password">
 
 
         <div class="mt-8">
-            <input type="submit" class="btn btn-success" style="width:100%;" value="Ro'yxatdan o'tish" />
+            <input type="submit" class="btn btn-success" style="width:100%; background-color:aqua; margin-top:40px;"  value="Ro'yxatdan o'tish" />
         </div>
         <button class="btn btn-primary" asp-controller="accounts" asp-action="login">Kirish</button>
     </form>
-</body>
-</html>
+</div>

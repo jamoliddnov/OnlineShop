@@ -50,6 +50,10 @@ namespace OnlineShop.DataAccess.Repositories.Common
             }
         }
 
+        public void TrackingDeteched(T entity)
+        {
+            _dbcontext.Entry<T>(entity!).State = EntityState.Detached;
+        }
 
         public virtual void Update(long id, T entity)
         {
@@ -64,6 +68,7 @@ namespace OnlineShop.DataAccess.Repositories.Common
             }
 
         }
+
 
         public virtual async Task<T?> FirstByIdAsync(long id)
         {

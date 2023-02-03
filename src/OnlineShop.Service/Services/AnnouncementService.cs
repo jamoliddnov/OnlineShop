@@ -70,7 +70,7 @@ namespace OnlineShop.Service.Services
         {
 
             IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            var query = await _unitOfWork.Announcements.GetAll().OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
             foreach (var item in query)
             {
                 AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
@@ -80,6 +80,7 @@ namespace OnlineShop.Service.Services
                 announcementViewModel.PhoneNumber = item.PhoneNumber;
                 announcementViewModel.Description = item.Description;
                 announcementViewModel.ImagePath = item.ImagePath;
+                announcementViewModel.CreateAt = item.CreateAt;
                 list.Add(announcementViewModel);
             }
             return list;
@@ -98,25 +99,34 @@ namespace OnlineShop.Service.Services
                 announcementViewModel.PhoneNumber = item.PhoneNumber;
                 announcementViewModel.Description = item.Description;
                 announcementViewModel.ImagePath = item.ImagePath;
+                announcementViewModel.CreateAt = item.CreateAt;
                 list.Add(announcementViewModel);
             }
             return list;
         }
 
-        public Task<IList<AnnouncementViewModel>> GetAllAsyncAdminAdd(long id)
+        public async Task GetAllAsyncAdminAdd(long id)
         {
-            throw new NotImplementedException();
+            var query = await _unitOfWork.Announcements.FirstByIdAsync(id);
+            _unitOfWork.Announcements.TrackingDeteched(query);
+            query.LiceCount = 1;
+            _unitOfWork.Announcements.Update(id, query);
+            await _unitOfWork.SaveChangesAsync();
         }
 
-        public Task<IList<AnnouncementViewModel>> GetAllAsyncAdminRemove(long id)
+        public async Task GetAllAsyncAdminRemove(long id)
         {
-            throw new NotImplementedException();
+            var query = await _unitOfWork.Announcements.FirstByIdAsync(id);
+            _unitOfWork.Announcements.TrackingDeteched(query);
+            query.LiceCount = 2;
+            _unitOfWork.Announcements.Update(id, query);
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IList<AnnouncementViewModel>> GetAllAsyncUser(PaginationParams paginationParams)
         {
             IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.Id == GlobalVariables.Id).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.UserId == GlobalVariables.Id).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
             foreach (var item in query)
             {
                 AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
@@ -126,6 +136,7 @@ namespace OnlineShop.Service.Services
                 announcementViewModel.PhoneNumber = item.PhoneNumber;
                 announcementViewModel.Description = item.Description;
                 announcementViewModel.ImagePath = item.ImagePath;
+                announcementViewModel.CreateAt = item.CreateAt;
                 list.Add(announcementViewModel);
             }
             return list;
@@ -134,7 +145,7 @@ namespace OnlineShop.Service.Services
         public async Task<IList<AnnouncementViewModel>> GetAllCategoryAsync(int id)
         {
             IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.CategoryId == id).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.CategoryId == id && x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
             foreach (var item in query)
             {
                 AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();

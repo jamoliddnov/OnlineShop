@@ -15,7 +15,7 @@ namespace OnlineShop.Service.Interfaces
         public Task<bool> DeleteAsync(long id);
         public Task<IList<AnnouncementViewModel>> GetByIdAsync(long id);
         public Task<IList<AnnouncementViewModel>> GetAllAsyncAdmin();
-        public Task<IList<AnnouncementViewModel>> GetAllAsyncAdminAdd(long id);
-        public Task<IList<AnnouncementViewModel>> GetAllAsyncAdminRemove(long id);
+        public Task GetAllAsyncAdminAdd(long id);
+        public Task GetAllAsyncAdminRemove(long id);
     }
 }

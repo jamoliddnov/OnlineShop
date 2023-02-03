@@ -8,13 +8,13 @@ namespace OnlineShop.Service.Dtos.Accounts
         [Required, MaxLength(30), MinLength(2)]
         public string FullName { get; set; }
 
-        [Required, MaxLength(9), MinLength(9)]
+        [Required, MaxLength(13), MinLength(13)]
         public string PhoneNumber { get; set; } = String.Empty;
 
         [Required, EmailAddress]
         public string Email { get; set; } = String.Empty;
 
-        [Required, MinLength(6), MaxLength(10)]
+        [Required, MinLength(6), MaxLength(15)]
         public string Password { get; set; } = String.Empty;
 
         public static implicit operator User(AccountRegisterDto dto)

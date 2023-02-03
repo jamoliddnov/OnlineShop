@@ -1,1 +1,59 @@
-﻿
+﻿@using OnlineShop.Service.ViewModels
+@model List<AnnouncementViewModel>
+@{
+	Layout = "../Shared/_Layout.cshtml";
+}
+<div class="banner banner_first">
+	<div class="banner_block first">
+		<a href="#">
+			<img src="~/images/banner_left.jpg" alt="banner">
+		</a>
+	</div>
+	<div class="banner_block second">
+		<a href="#">
+			<img src="~/images/banner_right.jpg" alt="banner">
+		</a>
+	</div>
+</div>
+<div class="row g-10 row row-cols-1 row-cols-md-2" style="display: flex;justify-content:left;">
+	<div class="products sale">
+		<div class="products_body">
+			@{
+				foreach (var product in Model)
+				{
+					<div class="product_item mb-2" style="margin-bottom: 25px">
+						<div class="articul">
+							Артикул: 3620
+						</div>
+						<div class="product_image">
+							<a href="#">
+								<img src="~/@product.ImagePath" width="150" height="150" alt="product">
+							</a>
+						</div>
+						<div class="product_name">
+							<a href="#">Клей профессиональный 10л "gross"</a>
+						</div>
+						<div class="product_price">
+							<div class="new_price">808.90 руб.</div>
+							<div class="old_price"></div>
+						</div>
+						<div class="product_action">
+							<div class="product_cart">
+								<a href="#" class="add_to_cart">В корзину</a>
+								<input class="product_count" type="text" value="1">
+								<div class="count_buttons">
+									<div class="add_more">+</div>
+									<div class="delete_more">-</div>
+								</div>
+							</div>
+							<div class="compare">
+								<a href="#">Добавить в сравнение</a>
+							</div>
+						</div>
+					</div>
+				}
+			}
+		</div>
+	</div>
+
+</div>

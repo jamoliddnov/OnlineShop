@@ -33,7 +33,7 @@ namespace OnlineShop.MVC.Controllers
                     });
                     if (token.role == "Admin")
                     {
-                        return RedirectToAction("", "Admin", new { area = "" });
+                        return RedirectToAction("Admin", "Admin", new { area = "" });
                     }
                     else if (token.role == "User")
                     {

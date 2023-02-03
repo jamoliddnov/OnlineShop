@@ -14,7 +14,7 @@ namespace OnlineShop.MVC.Controllers
             this._announcementService = announcementService;
         }
 
-        [HttpGet]
+        [HttpGet("getall")]
         public async Task<IActionResult> GetAllAsync(int page = 1)
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
