@@ -5,6 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="fonts/stylesheet.css">
 	<link rel="stylesheet" href="~/css/style.css">
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<link href="~/css/site.css" rel="stylesheet" type="text/css" />
+	<link href="~/css/style.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
 	<div class="wrapper">
@@ -12,156 +18,23 @@
 			<div class="header_top">
 				<div class="container">
 					<nav>
-						<ul>
-							<li><a href="#">Qurilish mollari do'koni</a></li>
+						<ul style="margin-left:-45%">
 							<li><a href="#">Yetkazib berish </a></li>
 							<li><a href="#">Qaytarish</a></li>
 							<li><a href="#">Barcha hizmatlar</a></li>
 						</ul>
 					</nav>
-					<div class="registration">
+					<div class="registration" style="margin-right:-11%">
 						<a asp-controller="accounts" asp-action="login">Kirish</a> / <a asp-controller="accounts" asp-action="register">Ro'yhatdan o'tish</a>
 					</div>
 				</div>
 			</div>
-			<div class="header_middle">
-				<div class="container">
-					<div class="header_logo">
-						<a href="#">
-							<img src="~/images/logo.png" alt="logo">
-						</a>
-					</div>
-					<div class="header_search">
-						<form action="">
-							<input type="text" name="search" placeholder="">
-							<button style="background-color:blanchedalmond">Qidirish</button>
-						</form>
-					</div>
-					<div class="header_contact">
-						<p>Dam olish kunlarisiz 9 dan 19 gacha</p>
-						<p class="phone">
-							<a href="tel:3812505977">(+998) <span>123-23-23</span></a>
-						</p>
-						<p class="call_back">
-							<a href="#">Buyurtma berish uchun</a>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="header_bottom">
-				<div class="container">
-					<nav class="main_nav">
-						<ul>
-							<li><a href="#" class="active">Asosiy </a></li>
-							<li><a href="#">Elektronika</a></li>
-							<li><a href="#">Hayvonlar</a></li>
-							<li><a href="#">Uy</a></li>
-							<li><a href="#">Mebel Jihozlari</a></li>
-							<li><a href="#">Maishiy texnika</a></li>
-							<li><a href="#">Kiyim Kechaklar</a></li>
-							<li><a href="#">Hizmatlar</a></li>
-							<li><a href="#">Mashinalar</a></li>
-						</ul>
-					</nav>
-					<div class="cart">
-						<a href="#">Korzinka bo'sh</a>
-					</div>
-				</div>
+			<div>
+				@RenderBody()
 			</div>
 	</header>
-	<main>
 
-		<div class="container">
-			<section class="products">
-				<div>
-				</div>
-				<div class="products_block">
-						<div>
-							@RenderBody()
-						</div>
-					<div class="banner banner_first">
-						<div class="banner_block">
-							<a href="#">
-								<img src="~/images/banner_fullwidth_1.jpg" alt="banner" >
-							</a>
-						</div>
-					</div>
-
-					<div class="banner banner_first">
-						<div class="banner_block">
-							<a href="#">
-								<img src="~/images/banner_fullwidth_2.jpg" alt="banner">
-							</a>
-						</div>
-					</div>
-
-		
-					<div class="pagination">
-						<nav>
-							<ul>
-								<li><a href="#">1</a></li>
-								<li class="active"><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-							</ul>
-						</nav>
-					</div>
-
-				</div>
-			</section>
-		</div>
-
-		<section class="advantages">
-			<div class="container">
-				<div class="advantages_block">
-
-					<div class="advatages_item">
-						<div class="advatntage_images">
-							<img src="~/images/adv_icon.png" alt="advantage_item">
-						</div>
-						<div class="advantage_name">Assartiment</div>
-						<div class="advantage_description">
-							Har doim stokda 22 000 dan ortiq<br>mahsulotlar turi<br> mavjud
-						</div>
-					</div>
-
-					<div class="advatages_item">
-						<div class="advatntage_images">
-							<img src="~/images/adv_icon.png" alt="advantage_item">
-						</div>
-						<div class="advantage_name">Sifat</div>
-						<div class="advantage_description">
-							Ko'p darajali boshqaruv tizimi<br> standartga muvofiq sifat<br>
-							<span>ISO9001</span>
-						</div>
-					</div>
-
-					<div class="advatages_item">
-						<div class="advatntage_images">
-							<img src="~/images/adv_icon.png" alt="advantage_item">
-						</div>
-						<div class="advantage_name">Yetkazib berish</div>
-						<div class="advantage_description">
-							Biz barcha mahsulotlaringizni<br> 2 soat ichida yoki istalgan qulay vaqtda<br> yetkazib beramiz!
-						</div>
-					</div>
-
-					<div class="advatages_item">
-						<div class="advatntage_images">
-							<img src="~/images/adv_icon.png" alt="advantage_item">
-						</div>
-						<div class="advantage_name">Sotib olish qaytariladi</div>
-						<div class="advantage_description">
-							Qolgan ortiqcha yoki sizni qoniqtirmagan<br> mahsulotingiz bormi? 120 kun ichida <br> <span>bizga qaytaring!</span>
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</section>
-
-	</main>
-	<footer>
+		<footer>
 		<div class="container">
 			<div class="footer_block">
 				<div class="footer_col col-3">
@@ -242,25 +115,25 @@
 							<div class="money_ranslate">
 								<div class="money_translate_image">
 									<a href="#">
-										<img src="images/visa.png" alt="visa">
+										<img src="~/images/visa.png" alt="visa">
 									</a>
 									<a href="#">
-										<img src="images/visa_electron.png" alt="visa_electron">
+										<img src="~/images/visa_electron.png" alt="visa_electron">
 									</a>
 									<a href="#">
-										<img src="images/master_card.png" alt="master_card">
+										<img src="~/images/master_card.png" alt="master_card">
 									</a>
 									<a href="#">
-										<img src="images/maestro.png" alt="maestro">
+										<img src="~/images/maestro.png" alt="maestro">
 									</a>
 									<a href="#">
-										<img src="images/mir.png" alt="mir">
+										<img src="~/images/mir.png" alt="mir">
 									</a>
 								</div>
 							</div>
 
 							<section>
-								<p>BauLife - internet magazin<br> sotuv do'koni © 2015.</p>
+								<p>BauLife - internet <br> sotuv do'koni © 2015.</p>
 							</section>
 						</div>
 					</div>

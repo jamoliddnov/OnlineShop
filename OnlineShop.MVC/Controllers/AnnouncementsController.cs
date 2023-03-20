@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.ViewModels;
 
 namespace OnlineShop.MVC.Controllers
 {
+    [AllowAnonymous]
     [Route("announcement")]
     public class AnnouncementsController : Controller
     {
@@ -19,7 +21,7 @@ namespace OnlineShop.MVC.Controllers
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
             announcemts = await _announcementService.GetAllAsync(new PaginationParams(page, 20));
-            return View("Announcement", announcemts);
+            return View("../Home/Index", announcemts);
         }
 
         [HttpGet("category")]
@@ -27,7 +29,7 @@ namespace OnlineShop.MVC.Controllers
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
             announcemts = await _announcementService.GetAllCategoryAsync(page);
-            return View("Announcement", announcemts);
+            return View("../Home/Index", announcemts);
         }
 
         [HttpGet("{announcementId}")]
@@ -37,5 +39,26 @@ namespace OnlineShop.MVC.Controllers
             product = await _announcementService.GetByIdAsync(productId);
             return View("AnnouncementId", product);
         }
+
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(string search)
+        {
+            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
+            announcemts = await _announcementService.GetAllAsyncSearch(search);
+            return View("../Home/Index", announcemts);
+        }
+
+
+        [HttpGet("save")]
+        public async Task<IActionResult> Save(int productId)
+        {
+            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
+            announcemts = await _announcementService.GetAllAsync(new PaginationParams(1, 20));
+            return View("../Home/Index", announcemts);
+        }
+
+
+
     }
 }

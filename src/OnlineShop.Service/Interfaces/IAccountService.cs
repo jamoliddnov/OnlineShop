@@ -7,7 +7,7 @@ namespace OnlineShop.Service.Interfaces
     {
         public Task<bool> ImageProfileAsync(AccountImageProfilDto dto);
 
-        public Task<(string token, string role)> LoginAsync(AccountLoginDto dto);
+        public Task<string> LoginAsync(AccountLoginDto dto);
 
         public Task<bool> RegisterAsync(AccountRegisterDto dto);
 

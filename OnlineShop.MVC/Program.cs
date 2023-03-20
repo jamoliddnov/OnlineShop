@@ -3,6 +3,7 @@
 using AutoMapper;
 using OnlineShop.MVC.Configurations.LayerConfiguration;
 using OnlineShop.MVC.Middlewares;
+using OnlineShop.Service.Helpers;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDataAccess(builder.Configuration);
 builder.Services.AddService();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddWeb(builder.Configuration);
 
 
 //Mapper
@@ -38,17 +40,25 @@ app.UseStatusCodePages(async context =>
 {
     if (context.HttpContext.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
     {
-        context.HttpContext.Response.Redirect("accounts/login");
+        context.HttpContext.Response.Redirect("login");
     }
 });
 
 app.MapControllerRoute(
     name: "account",
-    pattern: "{area:exists}/{controller=Accounts}/{action=Login}/{id?}");
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.UseMiddleware<TokenRedirectMiddleware>();
+
+if (app.Services.GetService<IHttpContextAccessor>() != null)
+{
+    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
+}
+
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 app.UseCors("corspolicy");
 app.MapControllerRoute(
     name: "default",

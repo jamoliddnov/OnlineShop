@@ -2,17 +2,25 @@
 using OnlineMarket.Service.Common.Helpers;
 using OnlineShop.Service.Common.Exceptions;
 using OnlineShop.Service.Dtos.Accounts;
+using OnlineShop.Service.Helpers;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Interfaces.Common;
+using OnlineShop.Service.Services.Common;
 
 namespace OnlineShop.MVC.Controllers
 {
+
     [Route("accounts")]
     public class AccountsController : Controller
     {
         private readonly IAccountService _service;
-        public AccountsController(IAccountService acccountService)
+        private readonly IIdentityService _identity;
+
+        public AccountsController(IAccountService acccountService, IIdentityService identity)
         {
             this._service = acccountService;
+            _identity = identity;
+
         }
 
         [HttpGet("login")]
@@ -26,23 +34,30 @@ namespace OnlineShop.MVC.Controllers
                 try
                 {
                     var token = await _service.LoginAsync(accountLoginDto);
-                    HttpContext.Response.Cookies.Append("X-Access-Token", token.token.ToString(), new CookieOptions()
+
+
+
+                    HttpContext.Response.Cookies.Append("X-Access-Token", token.ToString(), new CookieOptions()
                     {
                         HttpOnly = true,
                         SameSite = SameSiteMode.Strict
                     });
-                    if (token.role == "Admin")
+                
+                    long id = HttpContextHelper.UserId;
+                    var res = HttpContextHelper.UserRole;
+                    if (res == "Admin")
                     {
-                        return RedirectToAction("Admin", "Admin", new { area = "" });
+                        return RedirectToAction("Approved", "Admin", new { area = "" });
                     }
-                    else if (token.role == "User")
+                    else if (res == "User")
                     {
-                        return RedirectToAction("Add", "User", new { area = "" });
+                        return RedirectToAction("Active", "users", new { area = "" });
                     }
                     else
                     {
-                        return View("Login");
+                        return View();
                     }
+
                 }
                 catch (ModelErrorException modelError)
                 {

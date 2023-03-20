@@ -16,7 +16,6 @@ namespace OnlineShop.Service.Services
         private readonly IUnitOfWork _appDbContext;
         public AccountService(IFileService fileService, IAuthManagerService authManagerService, IUnitOfWork appDbContext)
         {
-
             _fileService = fileService;
             _authManagerService = authManagerService;
             _appDbContext = appDbContext;
@@ -28,28 +27,27 @@ namespace OnlineShop.Service.Services
             return true;
         }
 
-        public async Task<(string token, string role)> LoginAsync(AccountLoginDto dto)
+        public async Task<string> LoginAsync(AccountLoginDto dto)
         {
             try
             {
                 var user = await _appDbContext.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
                 if (user is null)
                 {
-                    return (token: "Error", role: "Error");
+                    return "Error";
                 }
-
 
                 var hashResault = PasswordHash.Verify(dto.Password, user.PasswordHash, user.Salt);
                 if (hashResault)
                 {
-                    GlobalVariables.Id = user.Id;
-                    return (token: _authManagerService.GenereteToken(user), role: user.Role.ToString());
+                   
+                    return _authManagerService.GenereteToken(user);;
                 }
-                return (token: "Error", role: "Error");
+                return "Error";
             }
             catch
             {
-                return (token: "Error", role: "Error");
+                return "Error";
             }
         }
 
@@ -66,7 +64,6 @@ namespace OnlineShop.Service.Services
                 var userEntity = (User)dto;
                 userEntity.PasswordHash = hashResault.Hash;
                 userEntity.Salt = hashResault.Salt;
-                userEntity.Role = Domain.Enums.UserRole.Admin;
                 userEntity.IsEmailConfirmed = false;
                 userEntity.ImagePath = "";
 

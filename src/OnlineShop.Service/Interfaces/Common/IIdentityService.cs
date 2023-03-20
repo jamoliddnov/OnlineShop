@@ -4,12 +4,14 @@
     {
         public int? Id { get; }
 
-        public string Name { get; }
+        //public string Name { get; }
 
-        public string Phone { get; }
+        public string UserRole { get; }
 
-        public string Email { get; }
+        //public string Phone { get; }
 
-        public string Password { get; }
+        //public string Email { get; }
+
+        //public string Password { get; }
     }
 }

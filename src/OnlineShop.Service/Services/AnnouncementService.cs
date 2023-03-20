@@ -29,7 +29,7 @@ namespace OnlineShop.Service.Services
             {
                 var announcement = (Announcement)announcements;
 
-                announcement.CreateAt = DateTime.UtcNow.ToString();
+                announcement.CreateAt = DateTime.UtcNow.ToString("dd MMMM yyyy");
                 announcement.UserId = GlobalVariables.Id;
                 announcement.LiceCount = 0;
 
@@ -86,10 +86,65 @@ namespace OnlineShop.Service.Services
             return list;
         }
 
-        public async Task<IList<AnnouncementViewModel>> GetAllAsyncAdmin()
+        public async Task<IList<AnnouncementViewModel>> GetAllAsyncAdmin(int number)
         {
             IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 0).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+            if (number == 0)
+            {
+                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 0).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+                foreach (var item in query)
+                {
+                    List<User> user = (List<User>)await _unitOfWork.Users.GetAll().Where(x => x.Id == item.UserId).AsNoTracking().ToListAsync();
+
+                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
+                    announcementViewModel.Id = item.Id;
+                    announcementViewModel.Title = item.Title;
+                    announcementViewModel.Price = item.Price;
+                    announcementViewModel.PhoneNumber = item.PhoneNumber;
+                    announcementViewModel.Description = item.Description;
+                    announcementViewModel.ImagePath = item.ImagePath;
+                    announcementViewModel.CreateAt = item.CreateAt;
+                    foreach (var item2 in user)
+                    {
+                        announcementViewModel.UserName = item2.FullName;
+                    }
+                    list.Add(announcementViewModel);
+                }
+            }
+            else if (number == 1)
+            {
+                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+                foreach (var item in query)
+                {
+                    List<User> user = (List<User>)await _unitOfWork.Users.GetAll().Where(x => x.Id == item.UserId).AsNoTracking().ToListAsync();
+                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
+                    announcementViewModel.Id = item.Id;
+                    announcementViewModel.Title = item.Title;
+                    announcementViewModel.Price = item.Price;
+                    announcementViewModel.PhoneNumber = item.PhoneNumber;
+                    announcementViewModel.Description = item.Description;
+                    announcementViewModel.ImagePath = item.ImagePath;
+                    announcementViewModel.CreateAt = item.CreateAt;
+                    foreach (var item2 in user)
+                    {
+                        announcementViewModel.UserName = item2.FullName;
+                    }
+                    list.Add(announcementViewModel);
+                }
+            }
+
+            return list;
+            //" select p.pcode, p.barcode, p.pdesc, b.brand, c.category, p.price, p.reorder " +
+            //        " from product as p inner join brand as b on b.id = p.bid " +
+            //        " inner join category c on c.id = p.cid " +
+            //     $" where concat (p.pcode, b.brand, c.category) ilike '%{productForm.txtSearch.Text}%'; ";
+        }
+
+
+        public async Task<IList<AnnouncementViewModel>> GetAllAsyncSearch(string search)
+        {
+            IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
+            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1 && x.Title.Contains(search)).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
             foreach (var item in query)
             {
                 AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
@@ -104,6 +159,9 @@ namespace OnlineShop.Service.Services
             }
             return list;
         }
+
+
+
 
         public async Task GetAllAsyncAdminAdd(long id)
         {
@@ -126,18 +184,37 @@ namespace OnlineShop.Service.Services
         public async Task<IList<AnnouncementViewModel>> GetAllAsyncUser(PaginationParams paginationParams)
         {
             IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.UserId == GlobalVariables.Id).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
-            foreach (var item in query)
+            if (paginationParams.PageNumber == 1)
             {
-                AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                announcementViewModel.Id = item.Id;
-                announcementViewModel.Title = item.Title;
-                announcementViewModel.Price = item.Price;
-                announcementViewModel.PhoneNumber = item.PhoneNumber;
-                announcementViewModel.Description = item.Description;
-                announcementViewModel.ImagePath = item.ImagePath;
-                announcementViewModel.CreateAt = item.CreateAt;
-                list.Add(announcementViewModel);
+                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.UserId == GlobalVariables.Id && x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+                foreach (var item in query)
+                {
+                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
+                    announcementViewModel.Id = item.Id;
+                    announcementViewModel.Title = item.Title;
+                    announcementViewModel.Price = item.Price;
+                    announcementViewModel.PhoneNumber = item.PhoneNumber;
+                    announcementViewModel.Description = item.Description;
+                    announcementViewModel.ImagePath = item.ImagePath;
+                    announcementViewModel.CreateAt = item.CreateAt;
+                    list.Add(announcementViewModel);
+                }
+            }
+            if (paginationParams.PageNumber == 2)
+            {
+                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.UserId == GlobalVariables.Id && x.LiceCount == 0).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+                foreach (var item in query)
+                {
+                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
+                    announcementViewModel.Id = item.Id;
+                    announcementViewModel.Title = item.Title;
+                    announcementViewModel.Price = item.Price;
+                    announcementViewModel.PhoneNumber = item.PhoneNumber;
+                    announcementViewModel.Description = item.Description;
+                    announcementViewModel.ImagePath = item.ImagePath;
+                    announcementViewModel.CreateAt = item.CreateAt;
+                    list.Add(announcementViewModel);
+                }
             }
             return list;
         }
@@ -146,6 +223,7 @@ namespace OnlineShop.Service.Services
         {
             IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
             var query = await _unitOfWork.Announcements.GetAll().Where(x => x.CategoryId == id && x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
+
             foreach (var item in query)
             {
                 AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
@@ -164,8 +242,9 @@ namespace OnlineShop.Service.Services
         {
             try
             {
+                int count = 0;
                 IList<AnnouncementViewModel> announcementViewModels = new List<AnnouncementViewModel>();
-
+                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
                 var resault = await _unitOfWork.Announcements.FirstByIdAsync(id);
                 AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
                 announcementViewModel.Id = resault.Id;
@@ -173,8 +252,27 @@ namespace OnlineShop.Service.Services
                 announcementViewModel.Price = resault.Price;
                 announcementViewModel.PhoneNumber = resault.PhoneNumber;
                 announcementViewModel.ImagePath = resault.ImagePath;
+                announcementViewModel.CreateAt = resault.CreateAt;
                 announcementViewModel.Description = resault.Description;
                 announcementViewModels.Add(announcementViewModel);
+                foreach (var item in query)
+                {
+                    AnnouncementViewModel ViewModel = new AnnouncementViewModel();
+                    ViewModel.Id = item.Id;
+                    ViewModel.Title = item.Title;
+                    ViewModel.Price = item.Price;
+                    ViewModel.PhoneNumber = item.PhoneNumber;
+                    ViewModel.ImagePath = item.ImagePath;
+                    ViewModel.Description = item.Description;
+                    ViewModel.CreateAt = item.CreateAt;
+                    announcementViewModels.Add(ViewModel);
+                    count++;
+                    if (count == 10)
+                    {
+                        break;
+                    }
+                }
+
                 return announcementViewModels;
             }
             catch

@@ -10,12 +10,9 @@ namespace OnlineShop.DataAccess.DbContexts
         {
 
         }
-
         public virtual DbSet<User> Users { get; set; } = default!;
         public virtual DbSet<Announcement> Announcements { get; set; } = default!;
         public virtual DbSet<Category> Categorys { get; set; } = default!;
         public virtual DbSet<SavedAd> SavedAds { get; set; } = default!;
-
-
     }
 }

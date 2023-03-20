@@ -2,23 +2,23 @@
 {
     public class TokenRedirectMiddleware
     {
-        private readonly RequestDelegate _next;
-        public TokenRedirectMiddleware(RequestDelegate next)
+        private readonly RequestDelegate _request;
+        public TokenRedirectMiddleware(RequestDelegate request)
         {
-            this._next = next;
+            _request = request;
         }
 
-        public Task InvokeAsync(HttpContext httpContext)
+        public Task InvokeAsync(HttpContext context)
         {
-            if (httpContext.Request.Cookies.TryGetValue("X-Access-Token", out var accessToken))
+            if (context.Request.Cookies.TryGetValue("X-Access-Token", out var accessToken))
             {
                 if (!string.IsNullOrEmpty(accessToken))
                 {
-                    string bearerToken = String.Format("Bearer {0}", accessToken);
-                    httpContext.Request.Headers.Add("Authorization", bearerToken);
+                    string token = String.Format($"Bearer {0}",accessToken);
+                    context.Request.Headers.Add("Authorization", token);
                 }
             }
-            return _next(httpContext);
+            return _request(context);
         }
     }
 }

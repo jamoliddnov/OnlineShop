@@ -15,11 +15,7 @@ namespace OnlineShop.MVC.ViewComponents
         {
             AccountBaseViewModel accountBaseViewModel = new AccountBaseViewModel()
             {
-                Id = _identityService.Id!.Value,
-                Email = _identityService.Email,
-                Name = _identityService.Name,
-                Phone = _identityService.Phone,
-                Password = _identityService.Password,
+                Id = _identityService.Id!.Value 
             };
             return View(accountBaseViewModel);
         }

@@ -10,8 +10,12 @@ namespace OnlineShop.MVC.Controllers
 
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
         IAnnouncementService announcementService;
+
+        public ILogger<HomeController> Logger => _logger;
+
         public HomeController(ILogger<HomeController> logger, IAnnouncementService announcementService)
         {
             this.announcementService = announcementService;
@@ -27,6 +31,14 @@ namespace OnlineShop.MVC.Controllers
             return View("Index", announcemts);
         }
 
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(int page = 1)
+        {
+            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
+            announcemts = await announcementService.GetAllAsync(new PaginationParams(page, 20));
+            return View("Index", announcemts);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

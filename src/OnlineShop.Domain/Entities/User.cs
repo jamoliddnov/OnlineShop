@@ -12,6 +12,6 @@ namespace OnlineShop.Domain.Entities
         public string PasswordHash { get; set; } = string.Empty;
         public string Salt { get; set; } = string.Empty;
         public string ImagePath { get; set; } = string.Empty;
-        public UserRole Role { get; set; }
+        public UserRole Role { get; set; } = UserRole.User;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -6,9 +7,9 @@ namespace OnlineShop.MVC.Configurations
 {
     public static class JwtConfiguration
     {
-        public static void ConfigureAuth(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureAuth(this IServiceCollection services, IConfiguration configurations)
         {
-            var config = configuration.GetSection("Jwt");
+            var config = configurations.GetSection("Jwt");
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
