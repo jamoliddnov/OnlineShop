@@ -28,7 +28,7 @@ namespace OnlineShop.MVC.Controllers
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
             announcemts = await announcementService.GetAllAsync(new PaginationParams(page, 20));
-            return View("Index", announcemts);
+            return View("../Announcements/Announcement", announcemts);
         }
 
 

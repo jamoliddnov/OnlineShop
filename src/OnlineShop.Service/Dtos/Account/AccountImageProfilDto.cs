@@ -2,9 +2,9 @@
 
 namespace OnlineShop.Service.Dtos.Account
 {
-    public class AccountImageProfilDto
-    {
+	public class AccountImageProfilDto
+	{
 
-        public IFormFile Image { get; set; }
-    }
+		public IFormFile Image { get; set; }
+	}
 }

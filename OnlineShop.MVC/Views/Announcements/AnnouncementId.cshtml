@@ -12,89 +12,88 @@
         {
             if (count == 0)
             {
-    <div class="row" style="margin-bottom:-40px">
-                            <!-- Blog entries-->
-                            <div class="col-lg-8">
-                                <!-- Featured blog post-->
-                               
-                                <div class="card mb-4" style="height:600px; width:890px; margin-left:42px; margin-top:30px;">
-                                    <a href="#!"><img class="card-img-top" src="~/@products.ImagePath" alt="..." style="height:350px; width:830px; "/></a>
-                                    <div class="card-body" style="height:400px;">
-                                        <h2 class="card-title">@products.Title</h2>
-                                        <p class="card-text">@products.Description</p>
-                                    </div>
+                <div class="row" style="margin-bottom:-40px">
+                    <!-- Blog entries-->
+                    <div class="col-lg-8">
+                        <!-- Featured blog post-->
+
+                        <div class="card mb-4" style="height:600px; width:75%; margin-left:42px; margin-top:30px;">
+                            <a href="#!"><img class="card-img-top" src="~/@products.ImagePath" alt="..." style="height:350px; width:830px; "/></a>
+                            <div class="card-body" style="height:400px;">
+                                <h2 class="card-title">@products.Title</h2>
+                                <p class="card-text">@products.Description</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4" >
+                        <!-- Search widget-->
+                        <div class="card mb-4 " style="height:180px; width:685px; margin-top: 30px;  margin-left:-140px">
+                            <div class="card-header">Narxi</div>
+                            <div class="card-body">@products.Price so'm
+                            </div>
+                        </div>
+                        <!-- Categories widget-->
+                        <div class="card mb-4" style="height:180px; width:685px; margin-top: 27px;  margin-left:-140px">
+                            <div class="card-header">Holati</div>
+                            <div class="card-body">Yangi
+                                <div class="row">
                                 </div>
                             </div>
-                            <div class="col-lg-4" >
-                                <!-- Search widget-->
-                                <div class="card mb-4 " style="height:180px; width:685px; margin-top: 30px;  margin-left:-170px">
-                                    <div class="card-header">Narxi</div>
-                                    <div class="card-body">@products.Price so'm
-                                    </div>
-                                </div>
-                                <!-- Categories widget-->
-                                <div class="card mb-4" style="height:180px; width:685px; margin-top: 27px;  margin-left:-170px">
-                                    <div class="card-header">Holati</div>
-                                    <div class="card-body">Yangi
-                                        <div class="row">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Side widget-->
-                                <div class="card mb-4" style="height:180px; width:685px; margin-top: 27px;  margin-left:-170px">
-                                    <div class="card-header">Murojaat uchun</div>
-                                    <div class="card-body">@products.PhoneNumber</div>
-                                </div>
-                            </div>
-    </div>
+                        </div>
+                        <!-- Side widget-->
+                        <div class="card mb-4" style="height:180px; width:685px; margin-top: 27px;  margin-left:-140px">
+                            <div class="card-header">Murojaat uchun</div>
+                            <div class="card-body">@products.PhoneNumber</div>
+                        </div>
+                    </div>
+                </div>
                 count++;
                 break;
-            }
-
             }
         }
     }
 
-    <div class="row g-10 row row-cols-1 row-cols-md-2" style="display: flex;justify-content:center; margin:30px 30px -20px 30px">
-	<div class="products sale">
-		<div class="products_body">
-            @{
-                foreach (var product in Model)
-                {
-                    if (count != 1)
+    <div class="row g-10 row row-cols-1 row-cols-md-2" style="display: flex;justify-content:center; margin:30px 30px 260px 30px">
+        <div class="products sale">
+            <div class="products_body">
+                @{
+                    foreach (var product in Model)
                     {
-                                               <div class="product_item mb-2 "  style="margin: 15px 0px 0px 0px; height:420px;  border-radius:5px;">
-                                            <div class="product_image">
-                                                <a asp-controller="announcement" asp-action="announcementId" asp-route-productId="@product.Id">
-                                                    <img src="~/@product.ImagePath" width="100%"; height="240px" alt="product" style="border-radius:5px;">
-                                                </a>
-                                            </div>
-                                            <div class="product_name">
-                                                <a href="#">@product.Title</a>
-                                            </div>
-                                            <div class="product_name">
-                                                <div class="product_name" style="font-size:15px; color:cadetblue; margin-top:-10px">@product.CreateAt</div>
-                                                <div class="old_price">
-                                                </div>
-                                            </div>
-                                            <div class="product_action">
-                                                <div class="product_cart">
-                                                <div class="product_price" style="margin-top:20px">@product.Price so'm</div>
-                                                    <div class="count_buttons" style="margin-top:17px; margin-right:-8px">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                                                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        if (count <= 6 && count != 1)
+                        {
+                            <div class="product_item mb-2 "  style="margin: 15px 0px 0px 0px; height:420px;  border-radius:5px;">
+                                <div class="product_image">
+                                    <a asp-controller="announcement" asp-action="announcementId" asp-route-productId="@product.Id">
+                                        <img src="~/@product.ImagePath" width="100%"; height="240px" alt="product" style="border-radius:5px;">
+                                    </a>
+                                </div>
+                                <div class="product_name">
+                                    <a href="#">@product.Title</a>
+                                </div>
+                                <div class="product_name">
+                                    <div class="product_name" style="font-size:15px; color:cadetblue; margin-top:-10px">@product.CreateAt</div>
+                                    <div class="old_price">
+                                    </div>
+                                </div>
+                                <div class="product_action">
+                                    <div class="product_cart">
+                                        <div class="product_price" style="margin-top:20px">@product.Price so'm</div>
+                                        <div class="count_buttons" style="margin-top:17px; margin-right:-8px">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                                <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                            </svg>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        count++; 
                     }
-                    count--;
                 }
-			}
-		</div>
-	</div>
-</div>
+            </div>
+        </div>
+    </div>
+    
 }
 
                  

@@ -2,10 +2,9 @@
 using OnlineMarket.Service.Common.Helpers;
 using OnlineShop.Service.Common.Exceptions;
 using OnlineShop.Service.Dtos.Accounts;
-using OnlineShop.Service.Helpers;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Interfaces.Common;
-using OnlineShop.Service.Services.Common;
+using OnlineShop.Service.ViewModels;
 
 namespace OnlineShop.MVC.Controllers
 {
@@ -42,14 +41,14 @@ namespace OnlineShop.MVC.Controllers
                         HttpOnly = true,
                         SameSite = SameSiteMode.Strict
                     });
-                
-                    long id = HttpContextHelper.UserId;
-                    var res = HttpContextHelper.UserRole;
-                    if (res == "Admin")
+
+                    //long id = HttpContextHelper.UserId;
+                    //var res = HttpContextHelper.UserRole;
+                    if (GlobalVariables.Role == "Admin")
                     {
                         return RedirectToAction("Approved", "Admin", new { area = "" });
                     }
-                    else if (res == "User")
+                    else if (GlobalVariables.Role == "User")
                     {
                         return RedirectToAction("Active", "users", new { area = "" });
                     }
