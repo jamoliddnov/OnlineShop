@@ -3,7 +3,7 @@ using OnlineShop.Domain.Entities;
 
 namespace OnlineShop.DataAccess.Interfaces
 {
-	public interface IAccountRepositorie : IGenericRepositorie<User>
-	{
-	}
+    public interface IAccountRepositorie : IGenericRepositorie<User>
+    {
+    }
 }

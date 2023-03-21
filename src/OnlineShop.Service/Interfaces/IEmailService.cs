@@ -2,8 +2,8 @@
 
 namespace OnlineShop.Service.Interfaces
 {
-	public interface IEmailService
-	{
-		public Task<bool> SendAsync(EmailMessageViewModel message);
-	}
+    public interface IEmailService
+    {
+        public Task<bool> SendAsync(EmailMessageViewModel message);
+    }
 }

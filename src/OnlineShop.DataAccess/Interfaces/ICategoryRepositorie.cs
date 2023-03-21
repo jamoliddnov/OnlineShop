@@ -3,7 +3,7 @@ using OnlineShop.Domain.Entities;
 
 namespace OnlineShop.DataAccess.Interfaces
 {
-	public interface ICategoryRepositorie : IGenericRepositorie<Category>
-	{
-	}
+    public interface ICategoryRepositorie : IGenericRepositorie<Category>
+    {
+    }
 }

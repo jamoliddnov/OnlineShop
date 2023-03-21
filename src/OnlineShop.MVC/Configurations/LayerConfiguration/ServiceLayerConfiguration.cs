@@ -20,6 +20,7 @@ namespace OnlineShop.MVC.Configurations.LayerConfiguration
 			services.AddScoped<IPaginatorService, PaginatorService>();
 			services.AddScoped<IAccountService, AccountService>();
 			services.AddScoped<IIdentityService, IdentityService>();
+			services.AddScoped<ICustomerService, CustomerService>();
 
 		}
 	}

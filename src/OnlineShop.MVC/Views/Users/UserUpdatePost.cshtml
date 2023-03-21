@@ -1,0 +1,48 @@
+﻿@using OnlineShop.Service.ViewModels
+@{
+    Layout = "_UserLayout.cshtml";
+}
+
+@model CustomerAnnouncementViewModel;
+
+@{        
+    <div class="row" style="height: 1000px">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            <!-- Featured blog post-->
+
+            <div class="card mb-4" style="height:600px; width:75%; margin-left:42px; margin-top:30px;">
+                <a href="#!"><img class="card-img-top" src="~/@Model.ImagePath" alt="..." style="height:350px; width:830px; " /></a>
+                <div class="card-body" style="height:400px;">
+                    <h2 class="card-title">@Model.Title</h2>
+                    <p class="card-text">@Model.Description</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <!-- Search widget-->
+            <div class="card mb-4 " style="height:180px; width:685px; margin-top: 30px;  margin-left:-140px">
+                <div class="card-header">Narxi</div>
+                <div class="card-body">
+                    @Model.Price so'm
+                </div>
+            </div>
+            <!-- Categories widget-->
+            <div class="card mb-4" style="height:180px; width:685px; margin-top: 27px;  margin-left:-140px">
+                <div class="card-header">Holati</div>
+                <div class="card-body">
+                    Yangi
+                    <div class="row">
+                    </div>
+                </div>
+            </div>
+            <!-- Side widget-->
+            <div class="card mb-4" style="height:180px; width:685px; margin-top: 27px;  margin-left:-140px">
+                <div class="card-header">Murojaat uchun</div>
+                <div class="card-body">@Model.PhoneNumber</div>
+            </div>
+        </div>
+    </div>
+
+}
+

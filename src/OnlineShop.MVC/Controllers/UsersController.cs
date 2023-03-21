@@ -8,15 +8,17 @@ using OnlineShop.Service.ViewModels;
 namespace OnlineShop.MVC.Controllers
 {
 
-	[Route("users")]
+	[Route("user")]
 	// [Authorize(Roles = "User")]
 	[AllowAnonymous]
 	public class UsersController : Controller
 	{
 		IAnnouncementService announcementService;
-		public UsersController(IAnnouncementService announcementService)
+		ICustomerService customerService;
+		public UsersController(IAnnouncementService announcementService, ICustomerService customerService)
 		{
 			this.announcementService = announcementService;
+			this.customerService = customerService;
 		}
 
 		public async Task<ViewResult> Active()
@@ -35,7 +37,7 @@ namespace OnlineShop.MVC.Controllers
 		}
 
 		[HttpGet("notActive")]
-		public async Task<IActionResult> NorActive(int page)
+		public async Task<IActionResult> NotActive(int page)
 		{
 			IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
 			announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(page, 20));
@@ -63,7 +65,11 @@ namespace OnlineShop.MVC.Controllers
 			return View("userAddPost");
 		}
 
-
-
+		[HttpGet("updatePost")]
+		public async Task<IActionResult> UpdatePost(int productId)
+		{
+			var product = await customerService.GetByIdAsync(productId);
+			return View("userUpdatePost", product);
+		}
 	}
 }
