@@ -5,12 +5,12 @@ using OnlineShop.Domain.Entities;
 
 namespace OnlineShop.DataAccess.Repositories
 {
-    public class AnnouncementRepositorie : GenericRepositorie<Announcement>, IAnnouncementRepositorie
-    {
-        public AnnouncementRepositorie(AppDbContext appDbContext)
-            : base(appDbContext)
-        {
-        }
-    }
+	public class AnnouncementRepositorie : GenericRepositorie<Announcement>, IAnnouncementRepositorie
+	{
+		public AnnouncementRepositorie(AppDbContext appDbContext)
+			: base(appDbContext)
+		{
+		}
+	}
 }
 

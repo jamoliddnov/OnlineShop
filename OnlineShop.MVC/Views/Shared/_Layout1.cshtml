@@ -20,26 +20,26 @@
 					<a href="tel:3812505977">(+123) <span>91-123-23-23</span></a>
 				</p>
 		</div>	
-		</div>
 	</div>
-	<div class="header_bottom" style="height:50px; margin-left:-20%">
+</div>
+<div class="header_bottom" style="height:50px; margin-left:-20%">
 	<div class="container">
-			<nav class="main_nav">
-				<ul>
-					<li><a asp-controller="announcement" asp-action="getall" class="active"> Asosiy </a></li>
-					<li><a asp-controller="announcement" asp-action="category" asp-route-page="2">Elektronika</a></li>
-					<li><a asp-controller="announcement" asp-action="category" asp-route-page="1">Hayvonlar</a></li>
-				    <li><a asp-controller="announcement" asp-action="category" asp-route-page="3">Kiyimlar</a></li>
-					<li><a asp-controller="announcement" asp-action="category" asp-route-page="4">Uy</a></li>
-					<li><a asp-controller="announcement" asp-action="category" asp-route-page="6">Maishiy texnika</a></li>
-					<li><a href="#">Kiyim Kechaklar</a></li>
-					<li><a href="#">Hizmatlar</a></li>
-					<li><a asp-controller="announcement" asp-action="category" asp-route-page="5">Mashinalar</a></li>
-				</ul>
-			</nav>
-
-		</div>
+		<nav class="main_nav">
+			<ul>
+				<li><a asp-controller="announcement" asp-action="getall" class="active"> Asosiy </a></li>
+				<li><a asp-controller="announcement" asp-action="category" asp-route-page="2">Elektronika</a></li>
+				<li><a asp-controller="announcement" asp-action="category" asp-route-page="1">Hayvonlar</a></li>
+				<li><a asp-controller="announcement" asp-action="category" asp-route-page="3">Kiyimlar</a></li>
+				<li><a asp-controller="announcement" asp-action="category" asp-route-page="4">Uy</a></li>
+				<li><a asp-controller="announcement" asp-action="category" asp-route-page="6">Maishiy texnika</a></li>
+				<li><a href="#">Kiyim Kechaklar</a></li>
+				<li><a href="#">Hizmatlar</a></li>
+				<li><a asp-controller="announcement" asp-action="category" asp-route-page="5">Mashinalar</a></li>
+			</ul>
+		</nav>
 	</div>
+</div>
+
 <div>
 	@RenderBody()
 </div>
@@ -47,24 +47,7 @@
 <div class="container">
 	<section class="products">
 		<div class="products_block">
-@*					<div class="banner banner_first">
-				<div class="banner_block">
-					<a href="#">
-						<img src="~/images/banner_fullwidth_1.jpg" alt="banner">
-					</a>
-				</div>
-			</div>
-
-			<div class="banner banner_first">
-				<div class="banner_block">
-					<a href="#">
-						<img src="~/images/banner_fullwidth_2.jpg" alt="banner">
-					</a>
-				</div>
-			</div>*@
-
-
-			<div class="pagination" style="margin-top:30px">
+			<div class="pagination" style="margin-top:-220px">
 				<nav>
 					<ul>
 						<li><a href="#">1</a></li>
@@ -74,7 +57,6 @@
 					</ul>
 				</nav>
 			</div>
-
 		</div>
 	</section>
 </div>

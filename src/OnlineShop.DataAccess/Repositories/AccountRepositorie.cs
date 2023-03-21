@@ -5,13 +5,13 @@ using OnlineShop.Domain.Entities;
 
 namespace OnlineShop.DataAccess.Repositories
 {
-    public class AccountRepositorie : GenericRepositorie<User>, IAccountRepositorie
-    {
-        public AccountRepositorie(AppDbContext context)
-            : base(context)
-        {
-        }
-    }
+	public class AccountRepositorie : GenericRepositorie<User>, IAccountRepositorie
+	{
+		public AccountRepositorie(AppDbContext context)
+			: base(context)
+		{
+		}
+	}
 }
 
 

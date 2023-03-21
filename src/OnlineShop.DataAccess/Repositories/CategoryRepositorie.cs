@@ -5,11 +5,11 @@ using OnlineShop.Domain.Entities;
 
 namespace OnlineShop.DataAccess.Repositories
 {
-    public class CategoryRepositorie : GenericRepositorie<Category>, ICategoryRepositorie
-    {
-        public CategoryRepositorie(AppDbContext context)
-            : base(context)
-        {
-        }
-    }
+	public class CategoryRepositorie : GenericRepositorie<Category>, ICategoryRepositorie
+	{
+		public CategoryRepositorie(AppDbContext context)
+			: base(context)
+		{
+		}
+	}
 }
