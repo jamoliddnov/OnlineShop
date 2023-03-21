@@ -2,10 +2,10 @@
 
 namespace OnlineShop.Service.Interfaces
 {
-	public interface IVerifyEmailService
-	{
-		Task SendCodeAsync(SendCodeToEmailViewModel email);
+    public interface IVerifyEmailService
+    {
+        Task SendCodeAsync(SendCodeToEmailViewModel email);
 
 
-	}
+    }
 }

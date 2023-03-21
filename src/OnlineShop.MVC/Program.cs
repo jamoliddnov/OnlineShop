@@ -27,29 +27,29 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
-	app.UseHsts();
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseStatusCodePages(async context =>
 {
-	if (context.HttpContext.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
-	{
-		context.HttpContext.Response.Redirect("login");
-	}
+    if (context.HttpContext.Response.StatusCode == (int)HttpStatusCode.Unauthorized)
+    {
+        context.HttpContext.Response.Redirect("login");
+    }
 });
 
 app.MapControllerRoute(
-	name: "account",
-	pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    name: "account",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.UseMiddleware<TokenRedirectMiddleware>();
 
 if (app.Services.GetService<IHttpContextAccessor>() != null)
 {
-	HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
+    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
 }
 
 app.UseAuthentication();
@@ -58,8 +58,8 @@ app.UseAuthorization();
 
 app.UseCors("corspolicy");
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 

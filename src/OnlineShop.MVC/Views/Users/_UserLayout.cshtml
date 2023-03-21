@@ -3,26 +3,25 @@
 }
 <div class="header_middle">
 				<div class="container">
-					<div class="header_logo">
+					<div class="header_logo" style="margin-left: -13%">
 						<a href="#">
 							<img src="~/images/logo.png" alt="logo">
 						</a>
 					</div>
 				</div>
 			</div>
-			<div class="header_bottom">
+			<div class="header_bottom" style="margin-left: -20%">
 				<div class="container">
 					<nav class="main_nav">
 						<ul style="height: 10px">
 							<li><a asp-controller="user" asp-action="active" asp-route-page="1" class="active"> Faol E'lonlar </a></li>
 							<li><a asp-controller="user" asp-action="notActive" asp-route-page="2">Tasdiqlanmagan e'lonlar</a></li>
 							<li><a asp-controller="user" asp-action="addpost" asp-route-page="1">E'lon yaratish</a></li>
-				            <li><a asp-controller="" asp-action="" asp-route-page="">Saralanganlar</a></li>
 						</ul>
 					</nav>
 				</div>
 			</div>
-<div style="height:2000px">
+<div>
 	@RenderBody()
 </div>
 

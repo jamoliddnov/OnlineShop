@@ -2,8 +2,8 @@
 
 namespace OnlineShop.Service.Interfaces
 {
-	public interface IFileService
-	{
-		public Task<string> SaveImageAsync(IFormFile fromFile);
-	}
+    public interface IFileService
+    {
+        public Task<string> SaveImageAsync(IFormFile fromFile);
+    }
 }
