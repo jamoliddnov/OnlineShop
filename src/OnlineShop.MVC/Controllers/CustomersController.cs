@@ -11,11 +11,11 @@ namespace OnlineShop.MVC.Controllers
 	[Route("user")]
 	// [Authorize(Roles = "User")]
 	[AllowAnonymous]
-	public class UsersController : Controller
+	public class CustomersController : Controller
 	{
 		IAnnouncementService announcementService;
 		ICustomerService customerService;
-		public UsersController(IAnnouncementService announcementService, ICustomerService customerService)
+		public CustomersController(IAnnouncementService announcementService, ICustomerService customerService)
 		{
 			this.announcementService = announcementService;
 			this.customerService = customerService;
@@ -25,7 +25,7 @@ namespace OnlineShop.MVC.Controllers
 		{
 			IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
 			announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(1, 20));
-			return View("userAdd", announcemts);
+			return View("CustomerAdd", announcemts);
 		}
 
 		[HttpGet("active")]
@@ -33,7 +33,7 @@ namespace OnlineShop.MVC.Controllers
 		{
 			IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
 			announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(page, 20));
-			return View("userAdd", announcemts);
+			return View("CustomerAdd", announcemts);
 		}
 
 		[HttpGet("notActive")]
@@ -41,7 +41,7 @@ namespace OnlineShop.MVC.Controllers
 		{
 			IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
 			announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(page, 20));
-			return View("userAdd", announcemts);
+			return View("CustomerAdd", announcemts);
 		}
 
 		[HttpPost("addpostblock")]
@@ -53,7 +53,7 @@ namespace OnlineShop.MVC.Controllers
 			{
 				IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
 				announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(1, 20));
-				return View("userAdd", announcemts);
+				return View("CustomerAdd", announcemts);
 			}
 			return View(resault);
 		}
@@ -62,14 +62,33 @@ namespace OnlineShop.MVC.Controllers
 		public async Task<IActionResult> AddPost()
 
 		{
-			return View("userAddPost");
+			return View("CustomerAddPost");
+		}
+
+		[HttpGet("idPost")]
+		public async Task<IActionResult> GetByIdPost(int productId)
+		{
+			var product = await customerService.GetByIdAsync(productId);
+			return View("CustomerAnnouncementId", product);
 		}
 
 		[HttpGet("updatePost")]
 		public async Task<IActionResult> UpdatePost(int productId)
 		{
-			var product = await customerService.GetByIdAsync(productId);
-			return View("userUpdatePost", product);
-		}
+            var product = await customerService.GetByIdAsync(productId);
+			return View("CustomerUpdatePost", product);
+        }
+
+		[HttpPost("updatePostBlock")]
+		public async Task<IActionResult> UpdatePost([FromForm] CustomerAnnouncementViewModel dto)
+		{ 
+			var result = await customerService.UpdateAsync(dto);
+			if (result > 0)
+			{
+                var product = await customerService.GetByIdAsync((int)result);
+                return View("CustomerAnnouncementId", product);
+            }
+            return View("CustomerUpdatePost", dto);
+        }
 	}
 }

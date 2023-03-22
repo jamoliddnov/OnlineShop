@@ -51,7 +51,7 @@ namespace OnlineShop.MVC.Controllers
                     }
                     else if (GlobalVariables.Role == "User")
                     {
-                        return RedirectToAction("Active", "users", new { area = "" });
+                        return RedirectToAction("Active", "user", new { area = "" });
                     }
                     else
                     {
