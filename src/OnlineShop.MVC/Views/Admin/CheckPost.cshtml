@@ -1,9 +1,10 @@
 ﻿@using OnlineShop.Service.ViewModels
-@{
-    Layout = "_CustomerLayout.cshtml";
-}
 
-@model CustomerAnnouncementViewModel;
+@model AnnouncementViewModel;
+
+@{
+    Layout = "_AdminLayout.cshtml";
+}
 
 @{
     <div class="row" style="height: 1000px">
@@ -42,8 +43,11 @@
                 <div class="card-body">@Model.PhoneNumber</div>
             </div>
         </div>
-        <a class="btn btn-success" asp-controller="user" asp-action="updatePost" asp-route-productId="@Model.Id">
-            <button style="width: 95%; height:35px; background-color:aqua;  margin-left:40px; margin-top:-160px">E'lonni o'zgartiring</button>
+        <a class="btn btn-success" asp-controller="admin" asp-action="add" asp-route-Id="@Model.Id">
+            <button style="width: 95%; height:35px; background-color:aqua;  margin-left:40px; margin-top:-160px">E'lon joylashtirildi</button>
+        </a>
+        <a class="btn btn-success" asp-controller="admin" asp-action="remove" asp-route-Id="@Model.Id">
+            <button style="width: 95%; height:35px; background-color:aqua;  margin-left:40px; margin-top:-160px">E'lon o'chirildi</button>
         </a>
     </div>
 }

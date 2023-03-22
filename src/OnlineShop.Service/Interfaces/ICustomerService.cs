@@ -6,5 +6,6 @@ namespace OnlineShop.Service.Interfaces
     {
         Task<CustomerAnnouncementViewModel> GetByIdAsync(int id);
         Task<long> UpdateAsync(CustomerAnnouncementViewModel model);
+
     }
 }

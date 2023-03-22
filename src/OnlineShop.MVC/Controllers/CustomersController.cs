@@ -75,20 +75,20 @@ namespace OnlineShop.MVC.Controllers
 		[HttpGet("updatePost")]
 		public async Task<IActionResult> UpdatePost(int productId)
 		{
-            var product = await customerService.GetByIdAsync(productId);
+			var product = await customerService.GetByIdAsync(productId);
 			return View("CustomerUpdatePost", product);
-        }
+		}
 
 		[HttpPost("updatePostBlock")]
 		public async Task<IActionResult> UpdatePost([FromForm] CustomerAnnouncementViewModel dto)
-		{ 
+		{
 			var result = await customerService.UpdateAsync(dto);
 			if (result > 0)
 			{
-                var product = await customerService.GetByIdAsync((int)result);
-                return View("CustomerAnnouncementId", product);
-            }
-            return View("CustomerUpdatePost", dto);
-        }
+				var product = await customerService.GetByIdAsync((int)result);
+				return View("CustomerAnnouncementId", product);
+			}
+			return View("CustomerUpdatePost", dto);
+		}
 	}
 }

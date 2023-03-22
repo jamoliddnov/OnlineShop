@@ -9,19 +9,19 @@ using OnlineShop.Service.Services.Common.Security;
 
 namespace OnlineShop.MVC.Configurations.LayerConfiguration
 {
-	public static class ServiceLayerConfiguration
-	{
-		public static void AddService(this IServiceCollection services)
-		{
-			services.AddScoped<IAnnouncementService, AnnouncementService>();
-			services.AddScoped<IFileService, FileService>();
-			services.AddScoped<IAuthManagerService, AuthManagerService>();
-			services.AddScoped<IUnitOfWork, UnitOfWork>();
-			services.AddScoped<IPaginatorService, PaginatorService>();
-			services.AddScoped<IAccountService, AccountService>();
-			services.AddScoped<IIdentityService, IdentityService>();
-			services.AddScoped<ICustomerService, CustomerService>();
-
-		}
-	}
+    public static class ServiceLayerConfiguration
+    {
+        public static void AddService(this IServiceCollection services)
+        {
+            services.AddScoped<IAnnouncementService, AnnouncementService>();
+            services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IAuthManagerService, AuthManagerService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPaginatorService, PaginatorService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IAdminService, AdminService>();
+        }
+    }
 }
