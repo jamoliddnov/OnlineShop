@@ -11,11 +11,11 @@ namespace OnlineShop.MVC.Controllers
     [AllowAnonymous]
     public class AdminController : Controller
     {
-        IAnnouncementService announcementService;
+        private readonly IAdminService adminService;
 
-        public AdminController(IAnnouncementService announcementService)
+        public AdminController(IAdminService adminService)
         {
-            this.announcementService = announcementService;
+            this.adminService = adminService;
         }
 
         public IActionResult Index()
@@ -27,7 +27,7 @@ namespace OnlineShop.MVC.Controllers
         public async Task<IActionResult> Approved()
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await this.announcementService.GetAllAsyncAdmin(0);
+            announcemts = await this.adminService.GetAllAsyncAdmin(0);
             return View("Post", announcemts);
         }
 
@@ -36,7 +36,7 @@ namespace OnlineShop.MVC.Controllers
         public async Task<IActionResult> NotApproved()
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await this.announcementService.GetAllAsyncAdmin(1);
+            announcemts = await this.adminService.GetAllAsyncAdmin(1);
             return View("Post", announcemts);
         }
 
@@ -44,19 +44,46 @@ namespace OnlineShop.MVC.Controllers
         [HttpGet("add")]
         public async Task<IActionResult> Add(long id)
         {
-            await this.announcementService.GetAllAsyncAdminAdd(id);
+            await this.adminService.GetAllAsyncAdminAdd(id);
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await this.announcementService.GetAllAsyncAdmin(1);
+            announcemts = await this.adminService.GetAllAsyncAdmin(1);
             return View("Post", announcemts);
         }
 
         [HttpGet("remove")]
         public async Task<IActionResult> Remove(long id)
         {
-            await this.announcementService.GetAllAsyncAdminRemove(id);
+            await this.adminService.GetAllAsyncAdminRemove(id);
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await this.announcementService.GetAllAsyncAdmin(0);
+            announcemts = await this.adminService.GetAllAsyncAdmin(1);
             return View("Post", announcemts);
+        }
+
+        [HttpGet("addPost")]
+        public async Task<IActionResult> Check(int productId)
+        {
+            var product = await adminService.GetByIdAsync(productId);
+            return View("CheckPost", product);
+        }
+
+        [HttpGet("userList")]
+        public async Task<IActionResult> UserList()
+        {
+            var product = await adminService.GetAllAsyncCustomer();
+            return View("UserList", product);
+        }
+
+        [HttpGet("removePostUser")]
+        public async Task<IActionResult> removePostUser(long id)
+        {
+            var result = await adminService.CustomerRemove(id);
+
+            if (result)
+            {
+                var product = await adminService.GetAllAsyncCustomer();
+                return View("UserList", product);
+            }
+            return View("UserList");
         }
     }
 }

@@ -7,6 +7,8 @@ using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Interfaces.Common;
 using OnlineShop.Service.ViewModels;
 
+#pragma warning disable
+
 namespace OnlineShop.Service.Services
 {
     public class AnnouncementService : IAnnouncementService
@@ -49,20 +51,11 @@ namespace OnlineShop.Service.Services
         }
 
 
-
         public async Task<bool> DeleteAsync(long id)
         {
-            try
-            {
-                _unitOfWork.Announcements.Delete(id);
-                _unitOfWork.SaveChangesAsync();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-
+            _unitOfWork.Announcements.Delete(id);
+            var result = await _unitOfWork.SaveChangesAsync();
+            return result > 0;
         }
 
 
@@ -86,61 +79,6 @@ namespace OnlineShop.Service.Services
             return list;
         }
 
-        public async Task<IList<AnnouncementViewModel>> GetAllAsyncAdmin(int number)
-        {
-            IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            if (number == 0)
-            {
-                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 0).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
-                foreach (var item in query)
-                {
-                    List<User> user = (List<User>)await _unitOfWork.Users.GetAll().Where(x => x.Id == item.UserId).AsNoTracking().ToListAsync();
-
-                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                    announcementViewModel.Id = item.Id;
-                    announcementViewModel.Title = item.Title;
-                    announcementViewModel.Price = item.Price;
-                    announcementViewModel.PhoneNumber = item.PhoneNumber;
-                    announcementViewModel.Description = item.Description;
-                    announcementViewModel.ImagePath = item.ImagePath;
-                    announcementViewModel.CreateAt = item.CreateAt;
-                    foreach (var item2 in user)
-                    {
-                        announcementViewModel.UserName = item2.FullName;
-                    }
-                    list.Add(announcementViewModel);
-                }
-            }
-            else if (number == 1)
-            {
-                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
-                foreach (var item in query)
-                {
-                    List<User> user = (List<User>)await _unitOfWork.Users.GetAll().Where(x => x.Id == item.UserId).AsNoTracking().ToListAsync();
-                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                    announcementViewModel.Id = item.Id;
-                    announcementViewModel.Title = item.Title;
-                    announcementViewModel.Price = item.Price;
-                    announcementViewModel.PhoneNumber = item.PhoneNumber;
-                    announcementViewModel.Description = item.Description;
-                    announcementViewModel.ImagePath = item.ImagePath;
-                    announcementViewModel.CreateAt = item.CreateAt;
-                    foreach (var item2 in user)
-                    {
-                        announcementViewModel.UserName = item2.FullName;
-                    }
-                    list.Add(announcementViewModel);
-                }
-            }
-
-            return list;
-            //" select p.pcode, p.barcode, p.pdesc, b.brand, c.category, p.price, p.reorder " +
-            //        " from product as p inner join brand as b on b.id = p.bid " +
-            //        " inner join category c on c.id = p.cid " +
-            //     $" where concat (p.pcode, b.brand, c.category) ilike '%{productForm.txtSearch.Text}%'; ";
-        }
-
-
         public async Task<IList<AnnouncementViewModel>> GetAllAsyncSearch(string search)
         {
             IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
@@ -158,27 +96,6 @@ namespace OnlineShop.Service.Services
                 list.Add(announcementViewModel);
             }
             return list;
-        }
-
-
-
-
-        public async Task GetAllAsyncAdminAdd(long id)
-        {
-            var query = await _unitOfWork.Announcements.FirstByIdAsync(id);
-            _unitOfWork.Announcements.TrackingDeteched(query);
-            query.LiceCount = 1;
-            _unitOfWork.Announcements.Update(id, query);
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task GetAllAsyncAdminRemove(long id)
-        {
-            var query = await _unitOfWork.Announcements.FirstByIdAsync(id);
-            _unitOfWork.Announcements.TrackingDeteched(query);
-            query.LiceCount = 2;
-            _unitOfWork.Announcements.Update(id, query);
-            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IList<AnnouncementViewModel>> GetAllAsyncUser(PaginationParams paginationParams)
@@ -294,7 +211,6 @@ namespace OnlineShop.Service.Services
                 _unitOfWork.Announcements.Update(id, announcement);
                 var res = await _unitOfWork.SaveChangesAsync();
                 return res > 0;
-
             }
             catch
             {

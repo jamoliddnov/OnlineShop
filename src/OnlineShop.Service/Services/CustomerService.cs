@@ -1,5 +1,4 @@
 ﻿using OnlineShop.DataAccess.Interfaces.Common;
-using OnlineShop.Domain.Entities;
 using OnlineShop.Domain.Enums;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.ViewModels;
@@ -69,7 +68,7 @@ namespace OnlineShop.Service.Services
             {
                 _unitOfWork.Announcements.TrackingDeteched(resultProdut);
 
-                
+
 
                 resultProdut.Id = resultProdut.Id;
                 resultProdut.PhoneNumber = model.PhoneNumber;
@@ -116,7 +115,7 @@ namespace OnlineShop.Service.Services
                                 break;
                             default:
                                 break;
-                        }           
+                        }
                     }
                 }
                 else
@@ -124,7 +123,7 @@ namespace OnlineShop.Service.Services
                     resultProdut.CategoryId = int.Parse(model.Category);
                 }
 
-                _unitOfWork.Announcements.Update(resultProdut.Id ,resultProdut);
+                _unitOfWork.Announcements.Update(resultProdut.Id, resultProdut);
                 var result = await _unitOfWork.SaveChangesAsync();
                 if (result > 0)
                 {
@@ -133,5 +132,7 @@ namespace OnlineShop.Service.Services
             }
             return 0;
         }
+
+
     }
 }
