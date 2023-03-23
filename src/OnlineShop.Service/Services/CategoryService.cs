@@ -1,7 +1,7 @@
 ﻿using OnlineShop.DataAccess.Interfaces.Common;
 using OnlineShop.Domain.Entities;
-using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Services.Common.PaginationServices;
 
 namespace OnlineShop.Service.Services
 {

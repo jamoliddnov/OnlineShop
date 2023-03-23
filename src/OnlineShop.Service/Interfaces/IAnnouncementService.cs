@@ -1,19 +1,20 @@
 ﻿using OnlineShop.Domain.Entities;
-using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Dtos.Announcement;
+using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.ViewModels;
+
 
 namespace OnlineShop.Service.Interfaces
 {
     public interface IAnnouncementService
     {
-        public Task<IList<AnnouncementViewModel>> GetAllAsync(PaginationParams @paginationParams);
-        public Task<IList<AnnouncementViewModel>> GetAllAsyncUser(PaginationParams @paginationParams);
-        public Task<IList<AnnouncementViewModel>> GetAllCategoryAsync(int id);
+        public Task<PageList<AnnouncementViewModel>> GetAllAsync(PaginationParams @paginationParams);
+        public Task<PageList<AnnouncementViewModel>> GetAllAsyncUser(PaginationParams @paginationParams);
+        public Task<PageList<AnnouncementViewModel>> GetAllCategoryAsync(int id, PaginationParams @paginationParams);
         public Task<bool> CreateAsync(CreateAnnouncementDto announcements);
         public Task<bool> UpdateAsync(long id, Announcement announcement);
         public Task<bool> DeleteAsync(long id);
         public Task<IList<AnnouncementViewModel>> GetByIdAsync(long id);
-        public Task<IList<AnnouncementViewModel>> GetAllAsyncSearch(string serach);
+        public Task<PageList<AnnouncementViewModel>> GetAllAsyncSearch(string serach, PaginationParams @paginationParams);
     }
 }

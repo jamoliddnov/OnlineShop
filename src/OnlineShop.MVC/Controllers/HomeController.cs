@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OnlineShop.MVC.Models;
-using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.ViewModels;
 using System.Diagnostics;
 

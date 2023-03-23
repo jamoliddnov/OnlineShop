@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using OnlineShop.DataAccess.Interfaces;
 using OnlineShop.Domain.Entities;
-using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Dtos.SavedAds;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Services.Common.PaginationServices;
+
+#pragma warning disable
 
 namespace OnlineShop.Service.Services
 {

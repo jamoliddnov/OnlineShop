@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Interfaces.Common;
 
-namespace OnlineShop.Service.Services.Common
+#pragma warning disable
+
+namespace OnlineShop.Service.Services.Common.PaginationServices
 {
     public class PaginatorService : IPaginatorService
     {
@@ -27,7 +28,7 @@ namespace OnlineShop.Service.Services.Common
             try
             {
                 int totalItems = items.Count();
-                PaginationMetaData paginationMetaData = new PaginationMetaData()
+                PaginationMetaData paginationMetaData = new PaginationMetaData(pageNumber, pageSize, totalItems)
                 {
                     CurrentPage = pageNumber,
                     PageSize = pageSize,

@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.ViewModels;
+
 
 namespace OnlineShop.MVC.Controllers
 {
@@ -11,6 +12,7 @@ namespace OnlineShop.MVC.Controllers
     public class AnnouncementsController : Controller
     {
         IAnnouncementService _announcementService;
+        private readonly int _pageSize = 20;
         public AnnouncementsController(IAnnouncementService announcementService)
         {
             this._announcementService = announcementService;
@@ -19,16 +21,16 @@ namespace OnlineShop.MVC.Controllers
         [HttpGet("getall")]
         public async Task<IActionResult> GetAllAsync(int page = 1)
         {
-            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await _announcementService.GetAllAsync(new PaginationParams(page, 20));
+
+            var announcemts = await _announcementService.GetAllAsync(new PaginationParams(page, _pageSize));
             return View("../Announcements/Announcement", announcemts);
         }
 
         [HttpGet("category")]
-        public async Task<IActionResult> GetAllAsyncCategory(int page)
+        public async Task<IActionResult> GetAllAsyncCategory(int category)
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await _announcementService.GetAllCategoryAsync(page);
+            announcemts = await _announcementService.GetAllCategoryAsync(category, new PaginationParams(1, _pageSize));
             return View("../Announcements/Announcement", announcemts);
         }
 
@@ -45,7 +47,7 @@ namespace OnlineShop.MVC.Controllers
         public async Task<IActionResult> Search(string search)
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await _announcementService.GetAllAsyncSearch(search);
+            announcemts = await _announcementService.GetAllAsyncSearch(search, new PaginationParams(1, _pageSize));
             return View("../Announcements/Announcement", announcemts);
         }
 
@@ -54,7 +56,7 @@ namespace OnlineShop.MVC.Controllers
         public async Task<IActionResult> Save(int productId)
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await _announcementService.GetAllAsync(new PaginationParams(1, 20));
+            announcemts = await _announcementService.GetAllAsync(new PaginationParams(1, _pageSize));
             return View("../Home/Index", announcemts);
         }
     }
