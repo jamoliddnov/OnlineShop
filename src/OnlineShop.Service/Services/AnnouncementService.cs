@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.DataAccess.Interfaces.Common;
 using OnlineShop.Domain.Entities;
-using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Dtos.Announcement;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Interfaces.Common;
+using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.ViewModels;
 
 #pragma warning disable
@@ -16,13 +17,15 @@ namespace OnlineShop.Service.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IFileService _fileService;
         private readonly IPaginatorService _paginatorService;
+        private readonly IMapper _mapper;
 
 
-        public AnnouncementService(IUnitOfWork unitOfWork, IFileService fileService, IPaginatorService paginatorService)
+        public AnnouncementService(IUnitOfWork unitOfWork, IFileService fileService, IPaginatorService paginatorService, IMapper mapper)
         {
             this._unitOfWork = unitOfWork;
             this._fileService = fileService;
             this._paginatorService = paginatorService;
+            this._mapper = mapper;
         }
 
         public async Task<bool> CreateAsync(CreateAnnouncementDto announcements)
@@ -59,100 +62,109 @@ namespace OnlineShop.Service.Services
         }
 
 
-        public async Task<IList<AnnouncementViewModel>> GetAllAsync(PaginationParams @paginationParams)
+        public async Task<PageList<AnnouncementViewModel>> GetAllAsync(PaginationParams @paginationParams)
         {
+            var query = from announcement in _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1).OrderBy(x => x.Id)
+                        select _mapper.Map<AnnouncementViewModel>(announcement);
 
-            IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
-            foreach (var item in query)
-            {
-                AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                announcementViewModel.Id = item.Id;
-                announcementViewModel.Title = item.Title;
-                announcementViewModel.Price = item.Price;
-                announcementViewModel.PhoneNumber = item.PhoneNumber;
-                announcementViewModel.Description = item.Description;
-                announcementViewModel.ImagePath = item.ImagePath;
-                announcementViewModel.CreateAt = item.CreateAt;
-                list.Add(announcementViewModel);
-            }
-            return list;
+            //var orders = await Task.Run(() => _unitOfWork.Orders.Where(x => x.UserId == HttpContextHelper.UserId));
+            //var result = await Task.Run(() => orders.Where(x => x.UserId == HttpContextHelper.UserId)
+            //                                        .Select(x => _mapper.Map<OrderViewModel>(x)));
+            //foreach (var item in query)
+            //{
+            //    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
+            //    announcementViewModel.Id = item.Id;
+            //    announcementViewModel.Title = item.Title;
+            //    announcementViewModel.Price = item.Price;
+            //    announcementViewModel.PhoneNumber = item.PhoneNumber;
+            //    announcementViewModel.Description = item.Description;
+            //    announcementViewModel.ImagePath = item.ImagePath;
+            //    announcementViewModel.CreateAt = item.CreateAt;
+            //    list.Add(announcementViewModel);
+            //}
+            return await PageList<AnnouncementViewModel>.ToPageListAsync(query, paginationParams);
         }
 
-        public async Task<IList<AnnouncementViewModel>> GetAllAsyncSearch(string search)
+        public async Task<PageList<AnnouncementViewModel>> GetAllAsyncSearch(string search, PaginationParams @paginationParams)
         {
             IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1 && x.Title.Contains(search)).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
-            foreach (var item in query)
-            {
-                AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                announcementViewModel.Id = item.Id;
-                announcementViewModel.Title = item.Title;
-                announcementViewModel.Price = item.Price;
-                announcementViewModel.PhoneNumber = item.PhoneNumber;
-                announcementViewModel.Description = item.Description;
-                announcementViewModel.ImagePath = item.ImagePath;
-                announcementViewModel.CreateAt = item.CreateAt;
-                list.Add(announcementViewModel);
-            }
-            return list;
+            var query = from announcement in _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1 && x.Title.Contains(search)).OrderBy(x => x.Id)
+                        select _mapper.Map<AnnouncementViewModel>(announcement);
+            //foreach (var item in query)
+            //{
+            //    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
+            //    announcementViewModel.Id = item.Id;
+            //    announcementViewModel.Title = item.Title;
+            //    announcementViewModel.Price = item.Price;
+            //    announcementViewModel.PhoneNumber = item.PhoneNumber;
+            //    announcementViewModel.Description = item.Description;
+            //    announcementViewModel.ImagePath = item.ImagePath;
+            //    announcementViewModel.CreateAt = item.CreateAt;
+            //    list.Add(announcementViewModel);
+            //}
+            return await PageList<AnnouncementViewModel>.ToPageListAsync(query, paginationParams);
         }
 
-        public async Task<IList<AnnouncementViewModel>> GetAllAsyncUser(PaginationParams paginationParams)
+        public async Task<PageList<AnnouncementViewModel>> GetAllAsyncUser(PaginationParams @paginationParams)
         {
-            IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            if (paginationParams.PageNumber == 1)
+            //IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
+            if (@paginationParams.PageNumber == 1)
             {
-                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.UserId == GlobalVariables.Id && x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
-                foreach (var item in query)
-                {
-                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                    announcementViewModel.Id = item.Id;
-                    announcementViewModel.Title = item.Title;
-                    announcementViewModel.Price = item.Price;
-                    announcementViewModel.PhoneNumber = item.PhoneNumber;
-                    announcementViewModel.Description = item.Description;
-                    announcementViewModel.ImagePath = item.ImagePath;
-                    announcementViewModel.CreateAt = item.CreateAt;
-                    list.Add(announcementViewModel);
-                }
+                var query = from announcement in _unitOfWork.Announcements.GetAll().Where(x => x.UserId == GlobalVariables.Id && x.LiceCount == 1).OrderBy(x => x.Id)
+                            select _mapper.Map<AnnouncementViewModel>(announcement);
+                //foreach (var item in query)
+                //{
+                //    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
+                //    announcementViewModel.Id = item.Id;
+                //    announcementViewModel.Title = item.Title;
+                //    announcementViewModel.Price = item.Price;
+                //    announcementViewModel.PhoneNumber = item.PhoneNumber;
+                //    announcementViewModel.Description = item.Description;
+                //    announcementViewModel.ImagePath = item.ImagePath;
+                //    announcementViewModel.CreateAt = item.CreateAt;
+
+                //}
+                return await PageList<AnnouncementViewModel>.ToPageListAsync(query, @paginationParams);
             }
-            if (paginationParams.PageNumber == 2)
+            if (@paginationParams.PageNumber == 2)
             {
-                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.UserId == GlobalVariables.Id && x.LiceCount == 0).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
-                foreach (var item in query)
-                {
-                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                    announcementViewModel.Id = item.Id;
-                    announcementViewModel.Title = item.Title;
-                    announcementViewModel.Price = item.Price;
-                    announcementViewModel.PhoneNumber = item.PhoneNumber;
-                    announcementViewModel.Description = item.Description;
-                    announcementViewModel.ImagePath = item.ImagePath;
-                    announcementViewModel.CreateAt = item.CreateAt;
-                    list.Add(announcementViewModel);
-                }
+                var query = from announcement in _unitOfWork.Announcements.GetAll().Where(x => x.UserId == GlobalVariables.Id && x.LiceCount == 0).OrderBy(x => x.Id)
+                            select _mapper.Map<AnnouncementViewModel>(announcement);
+                //foreach (var item in query)
+                //{
+                //    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
+                //    announcementViewModel.Id = item.Id;
+                //    announcementViewModel.Title = item.Title;
+                //    announcementViewModel.Price = item.Price;
+                //    announcementViewModel.PhoneNumber = item.PhoneNumber;
+                //    announcementViewModel.Description = item.Description;
+                //    announcementViewModel.ImagePath = item.ImagePath;
+                //    announcementViewModel.CreateAt = item.CreateAt;
+                //    list.Add(announcementViewModel);
+                //}
+                return await PageList<AnnouncementViewModel>.ToPageListAsync(query, @paginationParams);
             }
-            return list;
+            return null;
         }
 
-        public async Task<IList<AnnouncementViewModel>> GetAllCategoryAsync(int id)
+        public async Task<PageList<AnnouncementViewModel>> GetAllCategoryAsync(int id, PaginationParams @paginationParams)
         {
-            IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
-            var query = await _unitOfWork.Announcements.GetAll().Where(x => x.CategoryId == id && x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
 
-            foreach (var item in query)
-            {
-                AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                announcementViewModel.Id = item.Id;
-                announcementViewModel.Title = item.Title;
-                announcementViewModel.Price = item.Price;
-                announcementViewModel.PhoneNumber = item.PhoneNumber;
-                announcementViewModel.Description = item.Description;
-                announcementViewModel.ImagePath = item.ImagePath;
-                list.Add(announcementViewModel);
-            }
-            return list;
+            var query = from announcement in _unitOfWork.Announcements.GetAll().Where(x => x.CategoryId == id && x.LiceCount == 1).OrderBy(x => x.Id)
+                        select _mapper.Map<AnnouncementViewModel>(announcement);
+
+            //foreach (var item in query)
+            //{
+            //    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
+            //    announcementViewModel.Id = item.Id;
+            //    announcementViewModel.Title = item.Title;
+            //    announcementViewModel.Price = item.Price;
+            //    announcementViewModel.PhoneNumber = item.PhoneNumber;
+            //    announcementViewModel.Description = item.Description;
+            //    announcementViewModel.ImagePath = item.ImagePath;
+            //    list.Add(announcementViewModel);
+            //}
+            return await PageList<AnnouncementViewModel>.ToPageListAsync(query, @paginationParams);
         }
 
         public async Task<IList<AnnouncementViewModel>> GetByIdAsync(long id)

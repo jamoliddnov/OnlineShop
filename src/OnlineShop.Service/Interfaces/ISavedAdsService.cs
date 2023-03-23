@@ -1,6 +1,6 @@
 ﻿using OnlineShop.Domain.Entities;
-using OnlineShop.Service.Common.Utils;
 using OnlineShop.Service.Dtos.SavedAds;
+using OnlineShop.Service.Services.Common.PaginationServices;
 
 namespace OnlineShop.Service.Interfaces
 {

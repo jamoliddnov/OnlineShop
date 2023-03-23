@@ -5,6 +5,7 @@ using OnlineShop.Service.Interfaces.Common;
 using OnlineShop.Service.Interfaces.Common.Security;
 using OnlineShop.Service.Services;
 using OnlineShop.Service.Services.Common;
+using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.Services.Common.Security;
 
 namespace OnlineShop.MVC.Configurations.LayerConfiguration
@@ -22,6 +23,8 @@ namespace OnlineShop.MVC.Configurations.LayerConfiguration
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddHttpContextAccessor();
+            services.AddAutoMapper(typeof(MappingConfiguration));
         }
     }
 }

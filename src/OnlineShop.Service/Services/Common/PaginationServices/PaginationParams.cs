@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Service.Common.Utils
+﻿namespace OnlineShop.Service.Services.Common.PaginationServices
 {
     public class PaginationParams
     {
