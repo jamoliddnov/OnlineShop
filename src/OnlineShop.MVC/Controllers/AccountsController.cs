@@ -47,7 +47,7 @@ namespace OnlineShop.MVC.Controllers
                     var res = HttpContextHelper.UserRole;
                     if (GlobalVariables.Role == "Admin")
                     {
-                        return RedirectToAction("Approved", "Admin", new { area = "" });
+                        return RedirectToAction("Approvedd", "Admin", new { area = "" });
                     }
                     else if (GlobalVariables.Role == "User")
                     {

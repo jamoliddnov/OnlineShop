@@ -1,6 +1,7 @@
-﻿@using OnlineShop.Service.ViewModels
+﻿@using OnlineShop.Service.Services.Common.PaginationServices
+@using OnlineShop.Service.ViewModels
 
-@model List<UserViewModel>
+@model PageList<UserViewModel>
 @{
     Layout = "_AdminLayout.cshtml";
 }
@@ -24,7 +25,7 @@
             {
 
                 <tr>
-                    <th scope="row">count</th>
+                    <th scope="row">@count</th>
                     <td>@prduct.UserName</td>
                     <td>@prduct.Email</td>
                     <td>@prduct.PhoneNumber</td>

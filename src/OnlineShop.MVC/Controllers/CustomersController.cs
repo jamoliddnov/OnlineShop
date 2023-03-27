@@ -15,33 +15,27 @@ namespace OnlineShop.MVC.Controllers
     {
         IAnnouncementService announcementService;
         ICustomerService customerService;
-        private readonly int _pageSize = 20;
+        private readonly int _pageSize = 1;
         public CustomersController(IAnnouncementService announcementService, ICustomerService customerService)
         {
             this.announcementService = announcementService;
             this.customerService = customerService;
         }
 
-        public async Task<ViewResult> Active()
-        {
-            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(1, _pageSize));
-            return View("CustomerAdd", announcemts);
-        }
 
         [HttpGet("active")]
-        public async Task<IActionResult> Active2(int page = 1)
+        public async Task<IActionResult> Active(int page)
         {
-            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(page, _pageSize));
+            
+            var announcemts = await announcementService.GetAllAsyncUser(1, new PaginationParams(1, _pageSize));
             return View("CustomerAdd", announcemts);
         }
 
         [HttpGet("notActive")]
         public async Task<IActionResult> NotActive(int page)
         {
-            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(page, _pageSize));
+           
+            var announcemts = await announcementService.GetAllAsyncUser(2, new PaginationParams(1, _pageSize));
             return View("CustomerAdd", announcemts);
         }
 
@@ -52,8 +46,8 @@ namespace OnlineShop.MVC.Controllers
 
             if (resault)
             {
-                IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-                announcemts = await announcementService.GetAllAsyncUser(new PaginationParams(1, _pageSize));
+              
+               var announcemts = await announcementService.GetAllAsyncUser(1,new PaginationParams(1, _pageSize));
                 return View("CustomerAdd", announcemts);
             }
             return View(resault);

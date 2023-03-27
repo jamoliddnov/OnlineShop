@@ -26,8 +26,8 @@ namespace OnlineShop.MVC.Controllers
 
         public async Task<IActionResult> Index(int page = 1)
         {
-            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await announcementService.GetAllAsync(new PaginationParams(page, 20));
+            GlobalVariables.CategoryId = 7;
+            var announcemts = await announcementService.GetAllAsync(new PaginationParams(page, 1));
             return View("../Announcements/Announcement", announcemts);
         }
 
