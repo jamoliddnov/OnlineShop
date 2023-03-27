@@ -12,25 +12,31 @@ namespace OnlineShop.MVC.Controllers
     public class AnnouncementsController : Controller
     {
         IAnnouncementService _announcementService;
-        private readonly int _pageSize = 20;
+        private readonly int _pageSize = 1;
         public AnnouncementsController(IAnnouncementService announcementService)
         {
             this._announcementService = announcementService;
         }
 
         [HttpGet("getall")]
-        public async Task<IActionResult> GetAllAsync(int page = 1)
+        public async Task<IActionResult> GetAllAsync(int page)
         {
-
+            GlobalVariables.CategoryId = 7;
             var announcemts = await _announcementService.GetAllAsync(new PaginationParams(page, _pageSize));
             return View("../Announcements/Announcement", announcemts);
         }
 
         [HttpGet("category")]
-        public async Task<IActionResult> GetAllAsyncCategory(int category)
+        public async Task<IActionResult> GetAllAsyncCategory(int number , int page)
         {
-            IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await _announcementService.GetAllCategoryAsync(category, new PaginationParams(1, _pageSize));
+            if (number == 7)
+            {
+                GlobalVariables.CategoryId = 7;
+                var announcemt = await _announcementService.GetAllAsync(new PaginationParams(page, _pageSize));
+                return View("../Announcements/Announcement", announcemt);
+            }
+            GlobalVariables.CategoryId = number;
+            var announcemts = await _announcementService.GetAllCategoryAsync(number, new PaginationParams(page, _pageSize));
             return View("../Announcements/Announcement", announcemts);
         }
 

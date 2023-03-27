@@ -10,5 +10,6 @@
         public double Price { get; set; }
         public string PhoneNumber { get; set; } = String.Empty;
         public string CreateAt { get; set; } = String.Empty;
+        public long UserId { get; set; }
     }
 }

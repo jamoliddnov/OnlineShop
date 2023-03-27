@@ -9,7 +9,7 @@ namespace OnlineShop.Service.Interfaces
     public interface IAnnouncementService
     {
         public Task<PageList<AnnouncementViewModel>> GetAllAsync(PaginationParams @paginationParams);
-        public Task<PageList<AnnouncementViewModel>> GetAllAsyncUser(PaginationParams @paginationParams);
+        public Task<PageList<AnnouncementViewModel>> GetAllAsyncUser(int page, PaginationParams @paginationParams);
         public Task<PageList<AnnouncementViewModel>> GetAllCategoryAsync(int id, PaginationParams @paginationParams);
         public Task<bool> CreateAsync(CreateAnnouncementDto announcements);
         public Task<bool> UpdateAsync(long id, Announcement announcement);

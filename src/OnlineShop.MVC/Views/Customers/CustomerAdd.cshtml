@@ -1,12 +1,13 @@
-﻿@using OnlineShop.Service.ViewModels
-@model List<AnnouncementViewModel>
+﻿@using OnlineShop.Service.Services.Common.PaginationServices
+@using OnlineShop.Service.ViewModels
+@model PageList<AnnouncementViewModel>
 @{
     Layout = "_CustomerLayout.cshtml";
 }
 <div class="row g-10 row row-cols-1 row-cols-md-2" style="display: flex;justify-content:center; margin: 30px 30px 0 30px">
 
 	@{
-		if (Model.Count < 6)
+		if (Model.MetaData.TotalItems < 6)
 		{
 			<div class="products sale" style="height: 1000px">
 				<div class="products_body">
@@ -40,7 +41,7 @@
 				</div>
 			</div>
 		}
-		else if (Model.Count > 5)
+		else if (Model.MetaData.TotalItems > 5)
 		{
 			<div class="products sale">
 				<div class="products_body">
@@ -81,4 +82,39 @@
 			</div>
 		}
 	}
+</div>
+
+<div class="container" style="">
+	<section class="products">
+		<div class="products_block">
+			<div class="pagination" style="margin-top:-220px">
+				<nav>
+					<ul>
+						<li><a href="#"> < </a></li>
+						@{
+							for (int i = 1; i <= Model.MetaData.TotalPages; i++)
+							{
+								if (Model.MetaData.CurrentPage == @i)
+								{
+									<li class="active"><a href="#">@i</a></li>
+								}
+								else
+								{
+									<li><a href="#">@i</a></li>
+								}
+							}
+						}
+						<li><a href="#">></a></li>
+
+						@*<li><a href="#"> < </a></li>
+						<li><a href="#">1</a></li>
+						<li class="active"><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">></a></li>*@
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</section>
 </div>

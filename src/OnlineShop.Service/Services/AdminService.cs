@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using OnlineShop.DataAccess.Interfaces.Common;
 using OnlineShop.Domain.Entities;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.ViewModels;
 
 #pragma warning disable
@@ -11,10 +13,12 @@ namespace OnlineShop.Service.Services
     public class AdminService : IAdminService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public AdminService(IUnitOfWork unitOfWork)
+        public AdminService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this._unitOfWork = unitOfWork;
+            this._mapper = mapper;
         }
 
         public async Task<bool> CustomerRemove(long id)
@@ -33,54 +37,44 @@ namespace OnlineShop.Service.Services
             return result > 0;
         }
 
-        public async Task<IList<AnnouncementViewModel>> GetAllAsyncAdmin(int number)
+        public async Task<PageList<AnnouncementViewModel>> GetAllAsyncAdmin(int number, PaginationParams @paginationParams)
         {
-            IList<AnnouncementViewModel> list = new List<AnnouncementViewModel>();
             if (number == 0)
             {
-                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 0).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
-                foreach (var item in query)
-                {
-                    List<User> user = (List<User>)await _unitOfWork.Users.GetAll().Where(x => x.Id == item.UserId).AsNoTracking().ToListAsync();
+                var query = from announcement in _unitOfWork.Announcements.Where(x => x.LiceCount == 0).OrderBy(x => x.Id)
+                            select _mapper.Map<AnnouncementViewModel>(announcement);
+    
+                var result =  await PageList<AnnouncementViewModel>.ToPageListAsync(query, paginationParams);
 
-                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                    announcementViewModel.Id = item.Id;
-                    announcementViewModel.Title = item.Title;
-                    announcementViewModel.Price = item.Price;
-                    announcementViewModel.PhoneNumber = item.PhoneNumber;
-                    announcementViewModel.Description = item.Description;
-                    announcementViewModel.ImagePath = item.ImagePath;
-                    announcementViewModel.CreateAt = item.CreateAt;
-                    foreach (var item2 in user)
-                    {
-                        announcementViewModel.UserName = item2.FullName;
-                    }
-                    list.Add(announcementViewModel);
+                foreach (var user in result)
+                {
+                    var userQuery = await _unitOfWork.Users.Where(x => x.Id == user.UserId).AsNoTracking().ToListAsync();
+                    foreach (var item in userQuery)
+                    { 
+                        user.UserName = item.FullName;
+                    }              
                 }
+                return result;
             }
             else if (number == 1)
             {
-                var query = await _unitOfWork.Announcements.GetAll().Where(x => x.LiceCount == 1).OrderBy(x => x.Id).AsNoTracking().ToListAsync();
-                foreach (var item in query)
+                var query = from announcement in _unitOfWork.Announcements.Where(x => x.LiceCount == 1).OrderBy(x => x.Id)
+                            select _mapper.Map<AnnouncementViewModel>(announcement);
+
+                var result = await PageList<AnnouncementViewModel>.ToPageListAsync(query, paginationParams);
+
+                foreach (var user in result)
                 {
-                    List<User> user = (List<User>)await _unitOfWork.Users.GetAll().Where(x => x.Id == item.UserId).AsNoTracking().ToListAsync();
-                    AnnouncementViewModel announcementViewModel = new AnnouncementViewModel();
-                    announcementViewModel.Id = item.Id;
-                    announcementViewModel.Title = item.Title;
-                    announcementViewModel.Price = item.Price;
-                    announcementViewModel.PhoneNumber = item.PhoneNumber;
-                    announcementViewModel.Description = item.Description;
-                    announcementViewModel.ImagePath = item.ImagePath;
-                    announcementViewModel.CreateAt = item.CreateAt;
-                    foreach (var item2 in user)
+                    var userQuery = await _unitOfWork.Users.Where(x => x.Id == user.UserId).AsNoTracking().ToListAsync();
+                    foreach (var item in userQuery)
                     {
-                        announcementViewModel.UserName = item2.FullName;
+                        user.UserName = item.FullName;
                     }
-                    list.Add(announcementViewModel);
                 }
+                return result;
             }
 
-            return list;
+            return null;
         }
 
         public async Task GetAllAsyncAdminAdd(long id)
@@ -92,7 +86,7 @@ namespace OnlineShop.Service.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task GetAllAsyncAdminRemove(long id)
+        public async Task  GetAllAsyncAdminRemove(long id)
         {
             var query = await _unitOfWork.Announcements.FirstByIdAsync(id);
             _unitOfWork.Announcements.TrackingDeteched(query);
@@ -101,33 +95,12 @@ namespace OnlineShop.Service.Services
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<IList<UserViewModel>> GetAllAsyncCustomer()
+        public async Task<PageList<UserViewModel>> GetAllAsyncCustomer(PaginationParams @paginationParams)
         {
-            IList<UserViewModel> list = new List<UserViewModel>();
+            var query = from user in _unitOfWork.Users.GetAll().Where(x => x.Role == 0)
+                        select _mapper.Map<UserViewModel>(user);
 
-            var user = await _unitOfWork.Users.GetAll().Where(x => x.Role == 0).AsNoTracking().ToListAsync();
-
-            if (user is not null)
-            {
-                foreach (var userViewModel in user)
-                {
-                    UserViewModel userView = new UserViewModel();
-
-                    userView.Id = userViewModel.Id;
-                    userView.UserName = userViewModel.FullName;
-                    userView.PhoneNumber = userViewModel.PhoneNumber;
-                    userView.Email = userViewModel.Email;
-
-                    var count = from announcement in _unitOfWork.Announcements.Where(x => x.UserId == userViewModel.Id)
-                                select announcement.Category;
-
-                    userView.CountPost = count.Count();
-
-                    list.Add(userView);
-                }
-                return list;
-            }
-            return null;
+            return await PageList<UserViewModel>.ToPageListAsync(query, paginationParams);
         }
 
         public async Task<AnnouncementViewModel> GetByIdAsync(long id)

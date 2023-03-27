@@ -6,5 +6,6 @@
         public static string Role { get; set; } = String.Empty;
         public static string Empolyee { get; set; } = String.Empty;
         public static long UpdateId { get; set; }
+        public static int CategoryId { get; set; }
     }
 }
