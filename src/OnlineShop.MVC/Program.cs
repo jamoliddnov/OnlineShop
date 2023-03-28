@@ -47,9 +47,10 @@ app.MapControllerRoute(
 
 app.UseMiddleware<TokenRedirectMiddleware>();
 
+
 if (app.Services.GetService<IHttpContextAccessor>() != null)
 {
-    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
+    HttpContextHelper.Accessor =  app.Services.GetRequiredService<IHttpContextAccessor>();
 }
 
 app.UseAuthentication();

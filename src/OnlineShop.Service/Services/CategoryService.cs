@@ -3,6 +3,8 @@ using OnlineShop.Domain.Entities;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Services.Common.PaginationServices;
 
+#pragma warning disable
+
 namespace OnlineShop.Service.Services
 {
     public class CategoryService : ICategoryService
@@ -30,8 +32,8 @@ namespace OnlineShop.Service.Services
         public async Task<bool> DeleteAsync(long id)
         {
             _repository.Categorys.Delete(id);
-            _repository.SaveChangesAsync();
-            return true;
+            var result = await _repository.SaveChangesAsync();
+            return result > 0;
         }
 
         public async Task<IEnumerable<Category>> GetAllAsync(PaginationParams @paginationParams)

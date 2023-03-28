@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OnlineShop.Service.Helpers;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.ViewModels;
@@ -37,6 +38,8 @@ namespace OnlineShop.MVC.Controllers
         [HttpGet("notapprovedd")]
         public async Task<IActionResult> NotApprovedd()
         {
+            long id = HttpContextHelper.UserId;
+            var res = HttpContextHelper.UserRole;
             GlobalVariables.CategoryId = 0;
             var announcemts = await adminService.GetAllAsyncAdmin(0, new PaginationParams(1, _pageSize));
             return View("Post", announcemts);

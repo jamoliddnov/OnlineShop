@@ -5,6 +5,8 @@ using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.ViewModels;
 
+#pragma warning disable
+
 namespace OnlineShop.MVC.Controllers
 {
 
@@ -47,8 +49,8 @@ namespace OnlineShop.MVC.Controllers
 
             if (resault)
             {
-              
-               var announcemts = await announcementService.GetAllAsyncUser(1,new PaginationParams(1, _pageSize));
+
+                var announcemts = await announcementService.GetAllAsyncUser(1, new PaginationParams(1, _pageSize));
                 return View("CustomerAdd", announcemts);
             }
             return View(resault);

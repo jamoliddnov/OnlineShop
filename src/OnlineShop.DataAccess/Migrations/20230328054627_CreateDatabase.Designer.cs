@@ -11,8 +11,8 @@ using OnlineShop.DataAccess.DbContexts;
 namespace OnlineShop.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230206135059_CreateAdd")]
-    partial class CreateAdd
+    [Migration("20230328054627_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

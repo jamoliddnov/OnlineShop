@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineMarket.Service.Common.Helpers;
 using OnlineShop.Service.Common.Exceptions;
 using OnlineShop.Service.Dtos.Accounts;
@@ -7,7 +6,6 @@ using OnlineShop.Service.Helpers;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Interfaces.Common;
 using OnlineShop.Service.Services.Common.PaginationServices;
-using OnlineShop.Service.Services;
 using OnlineShop.Service.ViewModels;
 
 namespace OnlineShop.MVC.Controllers
@@ -24,7 +22,7 @@ namespace OnlineShop.MVC.Controllers
         {
             this._service = acccountService;
             _identity = identity;
-            _announcementService = announcementService; 
+            _announcementService = announcementService;
         }
 
         [HttpGet("login")]

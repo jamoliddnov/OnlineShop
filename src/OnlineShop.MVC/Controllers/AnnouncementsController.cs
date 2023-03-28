@@ -27,7 +27,7 @@ namespace OnlineShop.MVC.Controllers
         }
 
         [HttpGet("category")]
-        public async Task<IActionResult> GetAllAsyncCategory(int number , int page)
+        public async Task<IActionResult> GetAllAsyncCategory(int number, int page)
         {
             if (number == 7)
             {
