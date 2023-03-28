@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using OnlineShop.DataAccess.Interfaces.Common;
-using OnlineShop.Domain.Entities;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.ViewModels;
@@ -39,21 +38,21 @@ namespace OnlineShop.Service.Services
 
         public async Task<PageList<AnnouncementViewModel>> GetAllAsyncAdmin(int number, PaginationParams @paginationParams)
         {
-        
+
             if (number == 0)
             {
                 var query = from announcement in _unitOfWork.Announcements.Where(x => x.LiceCount == 0).OrderBy(x => x.Id)
                             select _mapper.Map<AnnouncementViewModel>(announcement);
-    
-                var result =  await PageList<AnnouncementViewModel>.ToPageListAsync(query, paginationParams);
+
+                var result = await PageList<AnnouncementViewModel>.ToPageListAsync(query, paginationParams);
 
                 foreach (var user in result)
                 {
                     var userQuery = await _unitOfWork.Users.Where(x => x.Id == user.UserId).AsNoTracking().ToListAsync();
                     foreach (var item in userQuery)
-                    { 
+                    {
                         user.UserName = item.FullName;
-                    }              
+                    }
                 }
                 return result;
             }
@@ -87,7 +86,7 @@ namespace OnlineShop.Service.Services
             var res = await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task  GetAllAsyncAdminRemove(long id)
+        public async Task GetAllAsyncAdminRemove(long id)
         {
             var query = await _unitOfWork.Announcements.FirstByIdAsync(id);
             _unitOfWork.Announcements.TrackingDeteched(query);
