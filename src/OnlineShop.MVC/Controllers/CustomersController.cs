@@ -15,7 +15,7 @@ namespace OnlineShop.MVC.Controllers
     {
         IAnnouncementService announcementService;
         ICustomerService customerService;
-        private readonly int _pageSize = 1;
+        private readonly int _pageSize = 15;
         public CustomersController(IAnnouncementService announcementService, ICustomerService customerService)
         {
             this.announcementService = announcementService;
@@ -24,20 +24,21 @@ namespace OnlineShop.MVC.Controllers
 
 
         [HttpGet("active")]
-        public async Task<IActionResult> Active(int page)
+        public async Task<IActionResult> Active()
         {
-            
+            GlobalVariables.CategoryId = 1;
             var announcemts = await announcementService.GetAllAsyncUser(1, new PaginationParams(1, _pageSize));
             return View("CustomerAdd", announcemts);
         }
 
-        [HttpGet("notActive")]
-        public async Task<IActionResult> NotActive(int page)
+        [HttpGet("active2")]
+        public async Task<IActionResult> Active2(int number, int page)
         {
-           
-            var announcemts = await announcementService.GetAllAsyncUser(2, new PaginationParams(1, _pageSize));
+            GlobalVariables.CategoryId = number;
+            var announcemts = await announcementService.GetAllAsyncUser(number, new PaginationParams(page, _pageSize));
             return View("CustomerAdd", announcemts);
         }
+
 
         [HttpPost("addpostblock")]
         public async Task<IActionResult> CreateAsync([FromForm] CreateAnnouncementDto dto)

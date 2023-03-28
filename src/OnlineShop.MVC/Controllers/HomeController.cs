@@ -27,7 +27,7 @@ namespace OnlineShop.MVC.Controllers
         public async Task<IActionResult> Index(int page = 1)
         {
             GlobalVariables.CategoryId = 7;
-            var announcemts = await announcementService.GetAllAsync(new PaginationParams(page, 1));
+            var announcemts = await announcementService.GetAllAsync(new PaginationParams(page, 15));
             return View("../Announcements/Announcement", announcemts);
         }
 
@@ -36,7 +36,7 @@ namespace OnlineShop.MVC.Controllers
         public async Task<IActionResult> Search(int page = 1)
         {
             IList<AnnouncementViewModel> announcemts = new List<AnnouncementViewModel>();
-            announcemts = await announcementService.GetAllAsync(new PaginationParams(page, 20));
+            announcemts = await announcementService.GetAllAsync(new PaginationParams(page, 15));
             return View("Index", announcemts);
         }
 

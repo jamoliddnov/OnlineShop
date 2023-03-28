@@ -39,6 +39,7 @@ namespace OnlineShop.Service.Services
 
         public async Task<PageList<AnnouncementViewModel>> GetAllAsyncAdmin(int number, PaginationParams @paginationParams)
         {
+        
             if (number == 0)
             {
                 var query = from announcement in _unitOfWork.Announcements.Where(x => x.LiceCount == 0).OrderBy(x => x.Id)
@@ -83,7 +84,7 @@ namespace OnlineShop.Service.Services
             _unitOfWork.Announcements.TrackingDeteched(query);
             query.LiceCount = 1;
             _unitOfWork.Announcements.Update(id, query);
-            await _unitOfWork.SaveChangesAsync();
+            var res = await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task  GetAllAsyncAdminRemove(long id)

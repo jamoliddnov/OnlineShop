@@ -13,7 +13,7 @@ namespace OnlineShop.MVC.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService adminService;
-        private readonly int _pageSize = 1;
+        private readonly int _pageSize = 20;
 
         public AdminController(IAdminService adminService)
         {
@@ -25,28 +25,28 @@ namespace OnlineShop.MVC.Controllers
             return View();
         }
 
-        [HttpGet("approvedd")]
-        public async Task<IActionResult> Approvedd( int page)
-        {
-            GlobalVariables.CategoryId = 0;
-            var announcemts = await this.adminService.GetAllAsyncAdmin(1, new PaginationParams(1,_pageSize));
-            return View("Post", announcemts);
-        }
-
         [HttpGet("approved")]
         public async Task<IActionResult> Approved(int number, int page)
         {
-            GlobalVariables.CategoryId = 0;
+            GlobalVariables.CategoryId = 1;
             var announcemts = await this.adminService.GetAllAsyncAdmin(number, new PaginationParams(page, _pageSize));
             return View("Post", announcemts);
         }
 
+
+        [HttpGet("notapprovedd")]
+        public async Task<IActionResult> NotApprovedd()
+        {
+            GlobalVariables.CategoryId = 0;
+            var announcemts = await adminService.GetAllAsyncAdmin(0, new PaginationParams(1, _pageSize));
+            return View("Post", announcemts);
+        }
 
         [HttpGet("notapproved")]
         public async Task<IActionResult> NotApproved(int number, int page)
         {
             GlobalVariables.CategoryId = 1;
-            var announcemts = await this.adminService.GetAllAsyncAdmin(number, new PaginationParams(page, _pageSize));
+            var announcemts = await adminService.GetAllAsyncAdmin(number, new PaginationParams(page, _pageSize));
             return View("Post", announcemts);
         }
 
@@ -55,17 +55,28 @@ namespace OnlineShop.MVC.Controllers
         public async Task<IActionResult> Add(long id)
         {
             await this.adminService.GetAllAsyncAdminAdd(id);
-          
-            var announcemts = await this.adminService.GetAllAsyncAdmin(1, new PaginationParams(1, _pageSize));
-            return View("Post", announcemts);
+
+            if (GlobalVariables.CategoryId == 1)
+            {
+                var announcemts = await adminService.GetAllAsyncAdmin(1, new PaginationParams(1, _pageSize));
+                return View("Post", announcemts);
+            }
+            var announcemt = await adminService.GetAllAsyncAdmin(0, new PaginationParams(1, _pageSize));
+            return View("Post", announcemt);
         }
 
         [HttpGet("remove")]
         public async Task<IActionResult> Remove(long id, int page)
         {
             await this.adminService.GetAllAsyncAdminRemove(id);
-            var announcemts = await this.adminService.GetAllAsyncAdmin(1, new PaginationParams(page, _pageSize));
-            return View("Post", announcemts);
+
+            if (GlobalVariables.CategoryId == 1)
+            {
+                var announcemts = await adminService.GetAllAsyncAdmin(1, new PaginationParams(1, _pageSize));
+                return View("Post", announcemts);
+            }
+            var announcemt = await adminService.GetAllAsyncAdmin(0, new PaginationParams(1, _pageSize));
+            return View("Post", announcemt);
         }
 
         [HttpGet("addPost")]
@@ -78,18 +89,18 @@ namespace OnlineShop.MVC.Controllers
         [HttpGet("userList")]
         public async Task<IActionResult> UserList(int page)
         {
-            var product = await adminService.GetAllAsyncCustomer(new PaginationParams(page, _pageSize));
+            var product = await this.adminService.GetAllAsyncCustomer(new PaginationParams(page, _pageSize));
             return View("UserList", product);
         }
 
         [HttpGet("removePostUser")]
-        public async Task<IActionResult> removePostUser(long id, int page)
+        public async Task<IActionResult> removePostUser(long id)
         {
             var result = await adminService.CustomerRemove(id);
 
             if (result)
             {
-                var product = await adminService.GetAllAsyncCustomer(new PaginationParams(page, _pageSize));
+                var product = await adminService.GetAllAsyncCustomer(new PaginationParams(1, _pageSize));
                 return View("UserList", product);
             }
             return View("UserList");

@@ -9,6 +9,7 @@ namespace OnlineShop.MVC.Configurations
         public MappingConfiguration()
         {
             CreateMap<AnnouncementViewModel, Announcement>().ReverseMap();
+            CreateMap<UserViewModel, User>().ReverseMap();
         }
 
     }

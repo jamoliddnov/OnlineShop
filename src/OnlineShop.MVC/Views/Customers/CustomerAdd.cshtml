@@ -7,7 +7,7 @@
 <div class="row g-10 row row-cols-1 row-cols-md-2" style="display: flex;justify-content:center; margin: 30px 30px 0 30px">
 
 	@{
-		if (Model.MetaData.TotalItems < 6)
+		if (Model.Count < 6)
 		{
 			<div class="products sale" style="height: 1000px">
 				<div class="products_body">
@@ -41,7 +41,7 @@
 				</div>
 			</div>
 		}
-		else if (Model.MetaData.TotalItems > 5)
+		else
 		{
 			<div class="products sale">
 				<div class="products_body">
@@ -74,47 +74,60 @@
 				</div>
 			</div>
 		}
-		else
-		{
-			<div class="products sale" style="height:1000px">
-				<div class="products_body">
-				</div>
-			</div>
-		}
 	}
-</div>
-
-<div class="container" style="">
-	<section class="products">
-		<div class="products_block">
-			<div class="pagination" style="margin-top:-220px">
-				<nav>
-					<ul>
-						<li><a href="#"> < </a></li>
-						@{
-							for (int i = 1; i <= Model.MetaData.TotalPages; i++)
-							{
-								if (Model.MetaData.CurrentPage == @i)
+	<div class="container">
+		<section class="products">
+			<div class="products_block">
+				<div class="pagination">
+					<nav>
+						<ul>
+							@{
+								if (Model.MetaData.CurrentPage == 1)
 								{
-									<li class="active"><a href="#">@i</a></li>
+									<li class="active"><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="1">1</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="2">2</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="3">3</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="4">4</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="5">5</a></li>
 								}
-								else
+								else if (Model.MetaData.CurrentPage == 2)
 								{
-									<li><a href="#">@i</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="1">1</a></li>
+									<li class="active"><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="2">2</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="3">3</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="4">4</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="5">5</a></li>
+								}
+								else if (Model.MetaData.CurrentPage == 3)
+								{
+									<li ><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="1">1</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="2">2</a></li>
+									<li class="active"><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="3">3</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="4">4</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="5">5</a></li>
+								}
+								else if (Model.MetaData.CurrentPage == 4)
+								{
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="1">1</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="2">2</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="3">3</a></li>
+									<li class="active"><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="4">4</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="5">5</a></li>
+								}
+								else if (Model.MetaData.CurrentPage == 5)
+								{
+									<li ><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="1">1</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="2">2</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="3">3</a></li>
+									<li><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="4">4</a></li>
+									<li class="active"><a style="position: relative;" asp-controller="user" asp-action="active2" asp-route-number="@GlobalVariables.CategoryId" asp-route-page="5">5</a></li>
 								}
 							}
-						}
-						<li><a href="#">></a></li>
-
-						@*<li><a href="#"> < </a></li>
-						<li><a href="#">1</a></li>
-						<li class="active"><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">></a></li>*@
-					</ul>
-				</nav>
+						</ul>
+					</nav>
+				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+	</div>
 </div>
+

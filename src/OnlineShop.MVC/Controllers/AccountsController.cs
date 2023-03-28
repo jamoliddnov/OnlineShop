@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineMarket.Service.Common.Helpers;
 using OnlineShop.Service.Common.Exceptions;
 using OnlineShop.Service.Dtos.Accounts;
 using OnlineShop.Service.Helpers;
 using OnlineShop.Service.Interfaces;
 using OnlineShop.Service.Interfaces.Common;
+using OnlineShop.Service.Services.Common.PaginationServices;
+using OnlineShop.Service.Services;
 using OnlineShop.Service.ViewModels;
 
 namespace OnlineShop.MVC.Controllers
@@ -13,14 +16,15 @@ namespace OnlineShop.MVC.Controllers
     [Route("accounts")]
     public class AccountsController : Controller
     {
+        private readonly IAnnouncementService _announcementService;
         private readonly IAccountService _service;
         private readonly IIdentityService _identity;
 
-        public AccountsController(IAccountService acccountService, IIdentityService identity)
+        public AccountsController(IAccountService acccountService, IIdentityService identity, IAnnouncementService announcementService)
         {
             this._service = acccountService;
             _identity = identity;
-
+            _announcementService = announcementService; 
         }
 
         [HttpGet("login")]
@@ -35,8 +39,6 @@ namespace OnlineShop.MVC.Controllers
                 {
                     var token = await _service.LoginAsync(accountLoginDto);
 
-
-
                     HttpContext.Response.Cookies.Append("X-Access-Token", token.ToString(), new CookieOptions()
                     {
                         HttpOnly = true,
@@ -47,7 +49,7 @@ namespace OnlineShop.MVC.Controllers
                     var res = HttpContextHelper.UserRole;
                     if (GlobalVariables.Role == "Admin")
                     {
-                        return RedirectToAction("Approvedd", "Admin", new { area = "" });
+                        return RedirectToAction("NotApprovedd", "Admin", new { area = "" });
                     }
                     else if (GlobalVariables.Role == "User")
                     {
@@ -101,6 +103,12 @@ namespace OnlineShop.MVC.Controllers
                 Expires = TimeHelper.GetCurrentServerTime().AddDays(-1)
             });
             return RedirectToAction("Login", "Accounts", new { area = "" });
+        }
+        [HttpGet("default")]
+        public async Task<IActionResult> DefaultAsync()
+        {
+            var announcemts = await _announcementService.GetAllAsync(new PaginationParams(1, 15));
+            return View("../Announcements/Announcement", announcemts);
         }
     }
 }
