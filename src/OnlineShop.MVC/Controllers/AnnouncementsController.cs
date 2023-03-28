@@ -12,7 +12,7 @@ namespace OnlineShop.MVC.Controllers
     public class AnnouncementsController : Controller
     {
         IAnnouncementService _announcementService;
-        private readonly int _pageSize = 1;
+        private readonly int _pageSize = 15;
         public AnnouncementsController(IAnnouncementService announcementService)
         {
             this._announcementService = announcementService;

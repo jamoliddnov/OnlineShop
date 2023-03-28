@@ -1,5 +1,5 @@
 ﻿@{
-	Layout = "../Shared/_Layout.cshtml";
+	Layout = "../Shared/_Layout2.cshtml";
 }
 <div class="header_middle">
 	<div class="container" style="margin-left: 5%">
@@ -14,14 +14,14 @@
 	<div class="container">
 		<nav class="main_nav">
 			<ul style="height: 10px">
-				<li><a asp-controller="admin" asp-action="approved"  class="active"> Tasdiqlanmagan e'lonlar</a></li>
-				<li><a asp-controller="admin" asp-action="notapproved" >Tasdiqlangan e'lonlar</a></li>
-				<li><a asp-controller="admin" asp-action="userList">Foydalanuvchilar ro'yhati</a></li>
+				<li><a asp-controller="admin" asp-action="approved" asp-route-number="0" asp-route-page="1" class="active"> Tasdiqlanmagan e'lonlar</a></li>
+				<li><a asp-controller="admin" asp-action="notapproved" asp-route-number="1" asp-route-page="1" >Tasdiqlangan e'lonlar</a></li>
+				<li><a asp-controller="admin" asp-action="userList" asp-route-page="1" >Foydalanuvchilar ro'yhati</a></li>
 			</ul>
 		</nav>
 	</div>
 </div>
-<div style="height:1500px">
+<div style="height:1020px">
 	@RenderBody()
 </div>
 

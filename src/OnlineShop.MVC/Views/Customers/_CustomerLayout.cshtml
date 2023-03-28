@@ -1,5 +1,5 @@
 ﻿@{
-	Layout = "../Shared/_Layout.cshtml";
+	Layout = "../Shared/_Layout2.cshtml";
 }
 <div class="header_middle">
 				<div class="container">
@@ -14,8 +14,8 @@
 				<div class="container">
 					<nav class="main_nav">
 						<ul style="height: 10px">
-							<li><a asp-controller="user" asp-action="active2" asp-route-page="1" class="active"> Faol E'lonlar </a></li>
-							<li><a asp-controller="user" asp-action="notActive" asp-route-page="2">Tasdiqlanmagan e'lonlar</a></li>
+							<li><a asp-controller="user" asp-action="active2" asp-route-number="1" asp-route-page="1" class="active"> Faol E'lonlar </a></li>
+							<li><a asp-controller="user" asp-action="active2" asp-route-number="2" asp-route-page="1">Tasdiqlanmagan e'lonlar</a></li>
 							<li><a asp-controller="user" asp-action="addpost" asp-route-page="1">E'lon yaratish</a></li>
 						</ul>
 					</nav>

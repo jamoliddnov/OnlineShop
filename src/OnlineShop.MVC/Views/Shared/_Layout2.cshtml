@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="fonts/stylesheet.css">
+	<link rel="stylesheet" href="~/css/style.css">
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+	<link href="~/css/site.css" rel="stylesheet" type="text/css" />
+	<link href="~/css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+	<div class="wrapper">
+		<header>
+			<div class="header_top">
+				<div class="container">
+					<nav>
+						<ul style="margin-left:-45%">
+							<li><a href="#">Yetkazib berish </a></li>
+							<li><a href="#">Qaytarish</a></li>
+							<li><a href="#">Barcha hizmatlar</a></li>
+						</ul>
+					</nav>
+					<div class="registration" style="margin-right:-11%">
+						<a asp-controller="accounts" asp-action="default">Chiqish</a>
+					</div>
+				</div>
+			</div>
+			<div>
+				@RenderBody()
+			</div>
+		</header>
+
+		<footer>
+			<div class="container">
+				<div class="footer_block">
+					<div class="footer_col col-3">
+
+						<div class="footer_title">Xaridorlar</div>
+						<div class="footer_content">
+							<ul>
+								<li><a href="#">Aktsiyalar</a></li>
+								<li><a href="#">Chegirmalar</a></li>
+								<li><a href="#">Sotib olish qaytariladi</a></li>
+								<li><a href="#">To'lov usullari</a></li>
+							</ul>
+						</div>
+
+					</div>
+					<div class="footer_col col-2">
+
+						<div class="footer_title">Shahsiy kabinet</div>
+						<div class="footer_content">
+							<ul>
+								<li><a href="#">Kirish</a></li>
+								<li><a href="#">Yangiliklar</a></li>
+								<li><a href="#">Brendalr</a></li>
+								<li><a href="#">Aktsiyalar</a></li>
+							</ul>
+						</div>
+
+					</div>
+					<div class="footer_col col-3">
+
+						<div class="footer_title">Ma'lumot</div>
+						<div class="footer_content">
+							<ul>
+								<li><a href="#">Biz haqimizda</a></li>
+								<li><a href="#">Kreditga sotib olish</a></li>
+								<li><a href="#">Xavfsizlik siyosati</a></li>
+								<li><a href="#">Shartnoma shartlari</a></li>
+								<li><a href="#">Barcha hizmatlar</a></li>
+							</ul>
+						</div>
+
+					</div>
+					<div class="footer_col col-4">
+
+						<div class="footer_title">Biz bilan bog'lanish</div>
+						<div class="footer_content">
+							<div class="the_end">
+								<p>Bizning mutaxassislarimiz barcha savollaringizga har doim, <br>javob berishdan mamnun </p>
+								<div class="location">
+									<div class="phone">
+										<ul>
+											<li>Telefonlar:<a href="tel:+998911232323"> +998-99-149-9449</a></li>
+										</ul>
+									</div>
+									<div class="email">
+										<ul>
+											<li>Email:<a href="mail:sale@baulife.ru"> sale@baulife.ru</a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="world_location">
+								<div class="world_location_images">
+									<a href="https://facebook.com">
+										<img src="images/facebook.png" alt="facebook">
+									</a>
+									<a href="https://twitter.com">
+										<img src="images/twitter.png" alt="tvitter">
+									</a>
+									<a href="https://gmail.com">
+										<img src="images/google.png" alt="google">
+									</a>
+									<a href="https://bloomberg.com">
+										<img src="images/bloomberg.png" alt="bloomberg">
+									</a>
+								</div>
+								<div class="money_ranslate">
+									<div class="money_translate_image">
+										<a href="#">
+											<img src="~/images/visa.png" alt="visa">
+										</a>
+										<a href="#">
+											<img src="~/images/visa_electron.png" alt="visa_electron">
+										</a>
+										<a href="#">
+											<img src="~/images/master_card.png" alt="master_card">
+										</a>
+										<a href="#">
+											<img src="~/images/maestro.png" alt="maestro">
+										</a>
+										<a href="#">
+											<img src="~/images/mir.png" alt="mir">
+										</a>
+									</div>
+								</div>
+
+								<section>
+									<p>BauLife - internet <br> sotuv do'koni © 2015.</p>
+								</section>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
