@@ -4,9 +4,10 @@
     {
         public int? Id { get; }
 
-        //public string Name { get; }
+        public string Name { get; }
 
         public string UserRole { get; }
+
 
         //public string Phone { get; }
 

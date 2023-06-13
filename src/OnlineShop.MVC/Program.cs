@@ -3,24 +3,21 @@ using OnlineShop.MVC.Middlewares;
 using OnlineShop.Service.Helpers;
 using System.Net;
 
+#pragma warning disable
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDataAccess(builder.Configuration);
 builder.Services.AddService();
-builder.Services.AddHttpContextAccessor();
 builder.Services.AddWeb(builder.Configuration);
 
 
-//Mapper
-//builder.Services.AddAutoMapper(typeof(MapperConfiguration));
-
-
-//builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
-//{
-//    build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
-//}));
+builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
+{
+    build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+}));
 
 var app = builder.Build();
 
@@ -47,11 +44,10 @@ app.MapControllerRoute(
 
 app.UseMiddleware<TokenRedirectMiddleware>();
 
-
 if (app.Services.GetService<IHttpContextAccessor>() != null)
 {
-    HttpContextHelper.Accessor =  app.Services.GetRequiredService<IHttpContextAccessor>();
-}
+    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
+};
 
 app.UseAuthentication();
 app.UseAuthorization();

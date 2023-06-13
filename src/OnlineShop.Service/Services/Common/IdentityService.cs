@@ -19,14 +19,14 @@ namespace OnlineShop.Service.Services.Common
             }
         }
 
-        ////public string Name
-        ////{
-        ////    get
-        ////    {
-        ////        var result = _accessor.HttpContext!.User.FindFirst("FirstName");
-        ////        return (result is null) ? String.Empty : result.Value;
-        ////    }
-        ////}
+        public string Name
+        {
+            get
+            {
+                var result = _accessor.HttpContext!.User.Claims.FirstOrDefault(p => p.Type == "FullName");
+                return (result is null) ? String.Empty : result.Value;
+            }
+        }
         ////public string Phone
         ////{
         ////    get

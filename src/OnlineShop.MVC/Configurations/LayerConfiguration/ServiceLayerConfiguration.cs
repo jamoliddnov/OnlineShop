@@ -14,6 +14,7 @@ namespace OnlineShop.MVC.Configurations.LayerConfiguration
     {
         public static void AddService(this IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
             services.AddScoped<IAnnouncementService, AnnouncementService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IAuthManagerService, AuthManagerService>();
@@ -23,7 +24,7 @@ namespace OnlineShop.MVC.Configurations.LayerConfiguration
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAdminService, AdminService>();
-            services.AddHttpContextAccessor();
+            services.AddScoped<IIdentityService, IdentityService>();
             services.AddAutoMapper(typeof(MappingConfiguration));
         }
     }
