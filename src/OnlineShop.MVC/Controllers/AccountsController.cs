@@ -42,9 +42,13 @@ namespace OnlineShop.MVC.Controllers
                         HttpOnly = true,
                         SameSite = SameSiteMode.Strict
                     });
+                    var ress = _identity.Equals(token);
 
                     long id = HttpContextHelper.UserId;
                     var res = HttpContextHelper.UserRole;
+
+
+
                     if (GlobalVariables.Role == "Admin")
                     {
                         return RedirectToAction("NotApprovedd", "Admin", new { area = "" });

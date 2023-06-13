@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Service.Dtos.Announcement;
 using OnlineShop.Service.Interfaces;
+using OnlineShop.Service.Interfaces.Common;
 using OnlineShop.Service.Services.Common.PaginationServices;
 using OnlineShop.Service.ViewModels;
 
@@ -15,13 +16,15 @@ namespace OnlineShop.MVC.Controllers
     [AllowAnonymous]
     public class CustomersController : Controller
     {
+        IIdentityService identityService;
         IAnnouncementService announcementService;
         ICustomerService customerService;
         private readonly int _pageSize = 15;
-        public CustomersController(IAnnouncementService announcementService, ICustomerService customerService)
+        public CustomersController(IAnnouncementService announcementService, IIdentityService identityService, ICustomerService customerService)
         {
             this.announcementService = announcementService;
             this.customerService = customerService;
+            this.identityService = identityService;
         }
 
 
